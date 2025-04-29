@@ -1,0 +1,35 @@
+{
+  "name": "clone-goldika-2025",
+  "version": "0.0.0",
+  "private": true,
+  "description": "developing...",
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "lint:fix": "next lint --fix"
+  },
+  "dependencies": {
+    "@emotion/cache": "^11.14.0",
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/material": "^7.0.2",
+    "@mui/material-nextjs": "^7.0.2",
+    "next": "15.3.1-canary.5",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "stylis-plugin-rtl": "^2.1.1"
+  },
+  "devDependencies": {
+    "@fullstacksjs/eslint-config": "11.10.1",
+    "@types/node": "22.14.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "9.24.0",
+    "husky": "9.1.7",
+    "lint-staged": "15.5.0",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3"
+  }
+}
