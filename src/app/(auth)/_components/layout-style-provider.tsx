@@ -14,12 +14,22 @@ const LayoutStyleProvider = ({ children }: Props) => {
       sx={{
         minHeight: "100vh",
         flexGrow: 1,
-        background: theme.palette.background.default,
-        flexDirection: "row",
+        background: theme.palette.background.paper,
+        flexDirection: { xs: "column", md: "row" },
       }}
     >
       <About />
-      {children}
+
+      <Stack
+        sx={{
+          flex: 1.8,
+          height: "100%",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {children}
+      </Stack>
     </Stack>
   );
 };

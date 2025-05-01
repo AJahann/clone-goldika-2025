@@ -1,7 +1,11 @@
 import LayoutStyleProvider from "./_components/layout-style-provider";
 
-const Layout = () => {
-  return <LayoutStyleProvider>test</LayoutStyleProvider>;
+interface Props {
+  children: React.ReactNode;
+}
+
+const Layout = ({ children }: Props) => {
+  return <LayoutStyleProvider>{children}</LayoutStyleProvider>;
 };
 
 export default Layout;

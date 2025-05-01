@@ -5,6 +5,17 @@
       "support": "پشتیبانی",
       "call_number": "شماره تماس :۰۰-۰۰۰ ۰۰۰ ۰۰",
       "email_contact": "رایانامه: support@gmail.com"
+    },
+    "login": {
+      "login": "ورود",
+      "register": "ثبت نام",
+      "email": "ایمیل",
+      "password": "پسورد",
+      "confirmation": {
+        "fs": "با ورود یا ثبت نام، ",
+        "sc": "شرایط و قوانین ",
+        "ls": "را میپذیرم."
+      }
     }
   }
 }

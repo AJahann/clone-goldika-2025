@@ -4,6 +4,23 @@ declare module "@mui/material/styles" {
   interface TypeBackground {
     secondary: string;
   }
+  interface Palette {
+    border: {
+      primary: string;
+      secondary: string;
+    };
+  }
+
+  interface PaletteOptions {
+    border?: {
+      primary: string;
+      secondary: string;
+    };
+  }
+
+  interface TypeText {
+    body: string;
+  }
 }
 
 const theme = createTheme({
@@ -28,6 +45,11 @@ const theme = createTheme({
     text: {
       primary: "#f2f2f3",
       secondary: "#ffffffb6",
+      body: "#373943",
+    },
+    border: {
+      primary: "#fff",
+      secondary: "#f2f2f360",
     },
   },
   typography: {
@@ -45,7 +67,32 @@ const theme = createTheme({
     },
     body1: {
       fontSize: "16px",
-      lineHeight: "32px",
+      lineHeight: "24px",
+    },
+    body2: {
+      fontSize: "13px",
+      lineHeight: "24px",
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontFamily: "inherit",
+          boxShadow: "none",
+          borderRadius: "8px",
+        },
+      },
+    },
+    MuiButtonBase: {
+      defaultProps: {
+        disableRipple: true,
+      },
+      styleOverrides: {
+        root: {
+          fontFamily: "inherit",
+        },
+      },
     },
   },
 });
