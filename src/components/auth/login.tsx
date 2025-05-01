@@ -7,26 +7,12 @@ import {
   ButtonBase,
   Link,
   Stack,
-  styled,
   Typography,
   useTheme,
 } from "@mui/material";
 import NextLink from "next/link";
 
-const Wrapper = styled(Stack)(({ theme }) => ({
-  width: "400px",
-  alignItems: "flex-start",
-  background: theme.palette.background.default,
-  padding: "28px",
-  border: "2px solid",
-  borderRadius: "16px",
-  borderColor: theme.palette.border.primary,
-  gap: "22px",
-  color: theme.palette.common.white,
-  [theme.breakpoints.down("sm")]: {
-    width: "85%",
-  },
-}));
+import Wrapper from "./wrapper";
 
 const Header = () => {
   const theme = useTheme();
@@ -41,7 +27,7 @@ const Header = () => {
       <Typography variant="h1">{FaContent.auth.login.login}</Typography>
       <Typography variant="h1">|</Typography>
       <Link
-        href="/register"
+        href="/sign-up"
         underline="none"
         color="primary"
         component={NextLink}
