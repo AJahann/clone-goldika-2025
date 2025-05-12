@@ -1,6 +1,6 @@
 "use client";
 
-import { Box, CssBaseline, GlobalStyles, useTheme } from "@mui/material";
+import { Box, CssBaseline, useTheme } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
