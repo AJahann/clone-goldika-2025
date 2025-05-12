@@ -29,7 +29,7 @@
     "@tanstack/react-query": "^5.75.0",
     "axios": "^1.9.0",
     "formik": "^2.4.6",
-    "next": "15.3.1-canary.5",
+    "next": "15.3.2",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "stylis-plugin-rtl": "^2.1.1",

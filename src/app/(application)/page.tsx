@@ -1,14 +1,7 @@
-import { Stack, Typography } from "@mui/material";
-import React from "react";
+import Home from "@/components/home/home";
 
 const page = () => {
-  return (
-    <Stack>
-      <Typography>Test</Typography>
-      <Typography color="primary">تست</Typography>
-      <Typography color="secondary">تست</Typography>
-    </Stack>
-  );
+  return <Home />;
 };
 
 export default page;

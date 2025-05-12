@@ -1,6 +1,7 @@
 "use client";
 import FaContent from "@/content/fa.json";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
+import Link from "next/link";
 
 import FlowerSVG from "./flower-svg";
 import Logo from "./logo";
@@ -26,6 +27,8 @@ const About = () => {
       }}
     >
       <Box
+        href="/"
+        component={Link}
         sx={{
           width: { xs: "80px", md: "125px" },
         }}
