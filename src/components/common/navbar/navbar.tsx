@@ -3,6 +3,7 @@
 import FaContent from "@/content/fa.json";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
+  alpha,
   AppBar,
   Box,
   Button,
@@ -107,7 +108,7 @@ const NavBar = () => {
     <AppBar
       position="sticky"
       sx={{
-        background: "transparent",
+        background: `linear-gradient(180deg,${alpha(theme.palette.background.default, 1)} 90%, ${alpha(theme.palette.background.default, 0.1)} 100%)`,
         boxShadow: "none",
         minHeight: "68px",
       }}

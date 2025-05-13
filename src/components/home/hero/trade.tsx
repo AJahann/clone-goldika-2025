@@ -158,11 +158,16 @@ const Trade = () => {
         </InputsContainer>
       </TradingMain>
 
-      <Link passHref href="/login" legacyBehavior>
-        <ActionButton fullWidth size="large" variant="outlined" color="primary">
-          {tab ? FaContent.home.trade.buy : FaContent.home.trade.sell}
-        </ActionButton>
-      </Link>
+      <ActionButton
+        fullWidth
+        size="large"
+        href="/login"
+        variant="outlined"
+        color="primary"
+        LinkComponent={Link}
+      >
+        {tab ? FaContent.home.trade.buy : FaContent.home.trade.sell}
+      </ActionButton>
     </Stack>
   );
 };
