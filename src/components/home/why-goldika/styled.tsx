@@ -3,7 +3,6 @@ import { Box, CardContent, Icon, Stack, styled } from "@mui/material";
 const InfoWrapper = styled(Box)(({ theme }) => ({
   display: "flex",
   gap: theme.spacing(3),
-  marginTop: theme.spacing(8),
   [theme.breakpoints.down("md")]: {
     margin: "0 auto",
     maxWidth: "480px",
@@ -45,7 +44,8 @@ const InfoTextContainer = styled(Box)(({ theme }) => ({
 
 const CardMediaContainer = styled(Icon)(() => ({
   height: "187px",
-  width: "298px",
+  maxWidth: "298px",
+  width: "100%",
   display: "flex",
   alignItems: "center",
   justifyContent: "center",

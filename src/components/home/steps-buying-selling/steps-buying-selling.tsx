@@ -116,7 +116,7 @@ export default function StepsBuyingSelling() {
   };
 
   return (
-    <Box pb={4.25} pt={4.25}>
+    <Box>
       <Typography
         variant="h2"
         component="h2"
