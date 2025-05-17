@@ -115,7 +115,7 @@ const NavBar = () => {
     >
       <Toolbar
         sx={{
-          maxWidth: "70rem",
+          maxWidth: "68rem",
           margin: "0 auto",
           width: "100%",
           justifyContent: "space-between",

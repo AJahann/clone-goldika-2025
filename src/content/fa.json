@@ -138,5 +138,46 @@
       "readMoreText": "ادامه‌ی مطلب",
       "closeText": "بستن"
     }
+  },
+  "footer": {
+    "links": {
+      "right": [
+        { "href": "/", "label": "صفحه‌ی اصلی" },
+        { "href": "/about", "label": "درباره ما" },
+        { "href": "/rules", "label": "شرایط و قوانین" },
+        { "href": "/blog", "label": "وبلاگ" }
+      ],
+      "left": [
+        { "href": "/faq", "label": "سؤالات متداول" },
+        { "href": "/trust", "label": "چطور به آ مارکت اعتماد کنیم؟" },
+        { "href": "/contact", "label": "ارتباط با ما" }
+      ]
+    },
+    "nemads": [
+      {
+        "src": "/images/footer/gi-enamad.44d72e55.png",
+        "alt": "enamad",
+        "text": "نماد اعتماد الکترونیکی"
+      },
+      {
+        "src": "/images/footer/gi-samandehi.7615b7e6.png",
+        "alt": "samandehi",
+        "text": "نشان ملی ثبت\nsamandehi.ir"
+      },
+      {
+        "src": "/images/footer/gi-ecunion.7ed64975.png",
+        "alt": "ecunion",
+        "text": "اتحادیه‌ی کشوری کسب‌و‌کار‌های مجازی"
+      }
+    ],
+    "addresses": {
+      "technical": "آدرس دفتر فنی: تهران، دانشگاه صنعتی شریف، مجتمع نوآوری شهید ستاری، طبقه پنجم، واحد ۵۲۳",
+      "store": "آدرس طلافروشی: تهران، خیابان ستارخان، تقاطع صادق پور، پاساژ الماس غرب، طبقه منفی یک، واحد ۱۵"
+    },
+    "phone": {
+      "label": "تلفن:",
+      "number": "۰۰-۰۰۰ ۰۰۰ ۰۰۰۰"
+    },
+    "copyright": "کلیه‌ی حقوق برای آ مارکت محفوظ است."
   }
 }
