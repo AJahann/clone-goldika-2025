@@ -14,7 +14,7 @@ const MainLayoutStyle = ({ children }: Props) => {
       <CssBaseline />
       <Box
         sx={{
-          background: theme.palette.background.paper,
+          background: theme.palette.background.default,
           width: "100%",
           display: "flex",
           flexDirection: "column",

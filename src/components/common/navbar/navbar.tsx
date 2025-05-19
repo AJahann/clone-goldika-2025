@@ -3,6 +3,7 @@
 import FaContent from "@/content/fa.json";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
+  alpha,
   AppBar,
   Box,
   Button,
@@ -16,6 +17,7 @@ import {
 } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const AuthButton = () => {
@@ -90,6 +92,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
 const NavBar = () => {
   const theme = useTheme();
+  const pathname = usePathname();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -103,18 +106,24 @@ const NavBar = () => {
     }
   }, [isMobile, mobileOpen]);
 
+  useEffect(() => {
+    if (mobileOpen && isMobile) {
+      setMobileOpen(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
   return (
     <AppBar
       position="sticky"
       sx={{
-        background: "transparent",
+        background: `linear-gradient(180deg,${alpha(theme.palette.background.default, 1)} 90%, ${alpha(theme.palette.background.default, 0.1)} 100%)`,
         boxShadow: "none",
         minHeight: "68px",
       }}
     >
       <Toolbar
         sx={{
-          maxWidth: "70rem",
+          maxWidth: "68rem",
           margin: "0 auto",
           width: "100%",
           justifyContent: "space-between",
@@ -135,8 +144,8 @@ const NavBar = () => {
             <Image
               height={40}
               width={40}
-              alt="Goldika"
-              src="/favicon.ico"
+              alt="Amarket"
+              src="/logo.png"
               style={{ marginLeft: "1.5rem" }}
             />
           </Link>

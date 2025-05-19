@@ -34,6 +34,12 @@ const theme = createTheme({
     secondary: {
       main: "#494c5a",
     },
+    success: {
+      main: "#2ed64a",
+    },
+    error: {
+      main: "#da2b2b",
+    },
     background: {
       default: "#2a2c34",
       paper: "#373943",
