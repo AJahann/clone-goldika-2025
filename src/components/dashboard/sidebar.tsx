@@ -11,17 +11,9 @@ import {
   StoreOutlined,
   SummarizeOutlined,
 } from "@mui/icons-material";
-import {
-  Box,
-  Stack,
-  styled,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Box, Stack, styled, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
 
 import LogoSvg from "./logo-svg";
 
@@ -107,6 +99,7 @@ const SideBar: React.FC = () => {
         transition: "all 0.3s ease-in-out",
         backgroundColor: theme.palette.background.paper,
         position: "relative",
+        zIndex: 99,
         [theme.breakpoints.down("md")]: {
           transform: !isSidebarOpen ? "translateX(0)" : "translateX(-17rem)",
           width: !isSidebarOpen ? "17rem" : 0,
@@ -119,10 +112,13 @@ const SideBar: React.FC = () => {
     >
       <Stack
         sx={{
-          position: "fixed",
+          position: "sticky",
           inset: 0,
           width: "100%",
-          height: "100%",
+          height: "100vh",
+          [theme.breakpoints.down("md")]: {
+            height: "100%",
+          },
         }}
       >
         <Stack

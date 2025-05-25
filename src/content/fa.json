@@ -200,5 +200,18 @@
   },
   "contact": {
     "contact": "ارتباط با آ مارکت"
+  },
+  "dashboard": {
+    "dashboard": {
+      "home": "خانه",
+      "buy_from_brand": "خرید از آ مارکت:",
+      "sell_to_brand": "فروش به آ مارکت:",
+      "gold": "(هرگرم طلای ۱۸ عیار)",
+      "toman": "تومان",
+      "buy": "خرید",
+      "sell": "فروش",
+      "amount": "موجودی کیف طلا:",
+      "increase_wallet": "افزایش موجودی"
+    }
   }
 }

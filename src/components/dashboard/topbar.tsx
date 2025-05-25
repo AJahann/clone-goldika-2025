@@ -2,7 +2,6 @@
 import { useSidebar } from "@/context/dashboard-sidebar-context";
 import { MenuRounded, PersonRounded } from "@mui/icons-material";
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
-import { useContext } from "react";
 
 const PanelTopBar = styled(Box)({
   position: "sticky",
