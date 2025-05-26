@@ -11,9 +11,17 @@ import {
   StoreOutlined,
   SummarizeOutlined,
 } from "@mui/icons-material";
-import { Box, Stack, styled, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Stack,
+  styled,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 
 import LogoSvg from "./logo-svg";
 
@@ -88,8 +96,17 @@ const SideBarItem: React.FC<SideBarItemProps> = ({ name, icon, to }) => {
 };
 
 const SideBar: React.FC = () => {
-  const { isSidebarOpen } = useSidebar();
+  const pathname = usePathname();
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
+  useEffect(() => {
+    if (isMobile && !isSidebarOpen) {
+      toggleSidebar();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]);
 
   return (
     <Stack
@@ -122,6 +139,8 @@ const SideBar: React.FC = () => {
         }}
       >
         <Stack
+          href="/"
+          component={Link}
           sx={{
             width: "110px",
             padding: theme.spacing(3),
@@ -156,7 +175,7 @@ const SideBar: React.FC = () => {
             <SideBarItem
               name="گزارش"
               icon={<SummarizeOutlined />}
-              to="/report"
+              to="/reports"
             />
             <SideBarItem
               name="دریافت طلا"

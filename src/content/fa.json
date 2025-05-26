@@ -231,6 +231,26 @@
       "cancel": "انصراف",
       "no_card_alert": "کارتی در سامانه تعریف نشده است.",
       "add_card_alert": "مالکیت کارت باید به نام خودتان باشد"
+    },
+    "trade": {
+      "title": "معامله‌ی طلا",
+      "buy": "خرید",
+      "sell": "فروش",
+      "price": {
+        "label": "قیمت $t(dashboard.trade.{{type}})",
+        "unit": "(هرگرم طلای ۱۸ عیار)"
+      },
+      "totalValue": {
+        "label": "ارزش کل",
+        "unit": "تومان"
+      },
+      "goldAmount": {
+        "label": "مقدار طلا",
+        "unit": "گرم"
+      },
+      "walletBalance": "موجودی کیف پول: {{amount}} تومان",
+      "goldBalance": "موجودی کیف طلا: {{amount}} گرم",
+      "actionButton": "$t(dashboard.trade.{{type}})"
     }
   }
 }

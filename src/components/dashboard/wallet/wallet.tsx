@@ -97,7 +97,7 @@ const WalletPage = () => {
             <AccountBalanceWalletOutlined sx={{ fontSize: 32 }} />
             <span>افزایش موجودی</span>
           </WalletActionButton>
-          <WalletActionButton fullWidth href="/report" LinkComponent={Link}>
+          <WalletActionButton fullWidth href="/reports" LinkComponent={Link}>
             <StickyNote2Outlined sx={{ fontSize: 32 }} />
             <span>گزارش</span>
           </WalletActionButton>
