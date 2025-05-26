@@ -14,7 +14,7 @@ const NoCard = () => {
 
       <WarningAlert>
         <Typography fontSize={14}>
-          {FaContent.dashboard.deposit.no_card_alert}
+          {FaContent.dashboard.transaction.no_card_alert}
         </Typography>
       </WarningAlert>
       <Button
@@ -24,7 +24,7 @@ const NoCard = () => {
         onClick={() => setOpen(true)}
       >
         <Typography fontSize={14} fontWeight={500}>
-          {FaContent.dashboard.deposit.add_card}
+          {FaContent.dashboard.transaction.add_card}
         </Typography>
       </Button>
     </Stack>

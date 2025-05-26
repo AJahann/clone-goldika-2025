@@ -48,18 +48,18 @@ const AddCardModal = ({ open, onClose }: AddCardModalProps) => {
 
   return (
     <ModalWrapper maxWidth="xs" onClose={handleClose} open={open}>
-      <DialogTitle>{FaContent.dashboard.deposit.add_bank_card}</DialogTitle>
+      <DialogTitle>{FaContent.dashboard.transaction.add_bank_card}</DialogTitle>
 
       <DialogContent sx={{ padding: 0 }}>
         <Stack mt={1} spacing={2}>
           <WarningAlert>
             <Typography fontSize={14}>
-              {FaContent.dashboard.deposit.add_card_alert}
+              {FaContent.dashboard.transaction.add_card_alert}
             </Typography>
           </WarningAlert>
 
           <StyledTextField
-            label={FaContent.dashboard.deposit.card_number}
+            label={FaContent.dashboard.transaction.card_number}
             value={cardNumber}
             onChange={(e) => setCardNumber(e.target.value)}
             slotProps={{
@@ -70,7 +70,7 @@ const AddCardModal = ({ open, onClose }: AddCardModalProps) => {
           />
 
           <StyledTextField
-            label={FaContent.dashboard.deposit.card_name}
+            label={FaContent.dashboard.transaction.card_name}
             value={cardName}
             onChange={(e) => setCardName(e.target.value)}
           />
@@ -85,14 +85,14 @@ const AddCardModal = ({ open, onClose }: AddCardModalProps) => {
           variant="outlined"
           onClick={handleClose}
         >
-          <Typography>{FaContent.dashboard.deposit.cancel}</Typography>
+          <Typography>{FaContent.dashboard.transaction.cancel}</Typography>
         </Button>
         <Button
           fullWidth
           disabled={!cardNumber || !cardName || isLoading}
           variant="contained"
         >
-          <Typography>{FaContent.dashboard.deposit.add}</Typography>
+          <Typography>{FaContent.dashboard.transaction.add}</Typography>
         </Button>
       </DialogActions>
     </ModalWrapper>

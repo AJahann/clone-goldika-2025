@@ -213,9 +213,13 @@
       "amount": "موجودی کیف طلا:",
       "increase_wallet": "افزایش موجودی"
     },
-    "deposit": {
+    "transaction": {
+      "withdraw": "برداشت",
       "deposit": "واریز",
       "amount": "مبلغ واریز",
+      "withdraw_amount": "مبلغ برداشت",
+      "balance": "موجودی",
+      "withdraw_alert": "فرآیند برداشت نهایتاً یک روز کاری زمان خواهد.",
       "toman": "تومان",
       "my_cards": "کارت های من",
       "add_card": "افزودن کارت",

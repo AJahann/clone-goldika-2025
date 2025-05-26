@@ -11,3 +11,12 @@ export const WarningAlert = styled((props: Omit<AlertProps, "severity">) => (
     color: theme.palette.primary.light,
   },
 }));
+
+export const ErrorAlert = styled((props: Omit<AlertProps, "severity">) => (
+  <Alert severity="error" {...props} />
+))(({ theme }) => ({
+  "width": "100%",
+  ".MuiAlert-icon": {
+    color: theme.palette.error.light,
+  },
+}));

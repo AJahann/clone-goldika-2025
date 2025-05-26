@@ -66,9 +66,9 @@ const MyCards = () => {
       <AddCardModal onClose={() => setOpen(false)} open={open} />
 
       <CardsHeader>
-        <Typography>{FaContent.dashboard.deposit.my_cards}</Typography>
+        <Typography>{FaContent.dashboard.transaction.my_cards}</Typography>
         <Button variant="text" onClick={() => setOpen(true)}>
-          <Typography>{FaContent.dashboard.deposit.add_card}</Typography>
+          <Typography>{FaContent.dashboard.transaction.add_card}</Typography>
         </Button>
       </CardsHeader>
 

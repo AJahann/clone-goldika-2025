@@ -23,14 +23,21 @@ const Deposit = () => {
 
   return (
     <DepositContainer>
-      <DepositTitle>{FaContent.dashboard.deposit.deposit}</DepositTitle>
+      <DepositTitle>{FaContent.dashboard.transaction.deposit}</DepositTitle>
 
       <DepositContent>
         <StyledTextField
-          label={FaContent.dashboard.deposit.amount}
-          name={FaContent.dashboard.deposit.toman}
+          label={FaContent.dashboard.transaction.amount}
+          name={FaContent.dashboard.transaction.toman}
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <Typography>{FaContent.dashboard.transaction.toman}</Typography>
+              ),
+            },
+          }}
           sx={{
             background: (theme) => theme.palette.background.default,
           }}
@@ -47,7 +54,7 @@ const Deposit = () => {
                 startIcon={<Add sx={{ fontSize: 20 }} />}
               >
                 {new Intl.NumberFormat("fa").format(+presetAmount)}{" "}
-                {FaContent.dashboard.deposit.toman}
+                {FaContent.dashboard.transaction.toman}
               </PresetAmountButton>
             ))}
           </PresetAmountRow>
@@ -61,7 +68,7 @@ const Deposit = () => {
                 startIcon={<Add sx={{ fontSize: 20 }} />}
               >
                 {new Intl.NumberFormat("fa").format(+presetAmount)}{" "}
-                {FaContent.dashboard.deposit.toman}
+                {FaContent.dashboard.transaction.toman}
               </PresetAmountButton>
             ))}
           </PresetAmountRow>
@@ -75,7 +82,7 @@ const Deposit = () => {
 
       <Stack alignItems="center" mt={3}>
         <SubmitButton variant="contained">
-          <Typography>{FaContent.dashboard.deposit.pay}</Typography>
+          <Typography>{FaContent.dashboard.transaction.pay}</Typography>
         </SubmitButton>
       </Stack>
     </DepositContainer>
