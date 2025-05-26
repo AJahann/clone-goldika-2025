@@ -1,6 +1,6 @@
 "use client";
-import SideBar from "@/components/dashboard/sidebar";
-import Topbar from "@/components/dashboard/topbar";
+import SideBar from "@/components/dashboard/common/sidebar";
+import Topbar from "@/components/dashboard/common/topbar";
 import { SidebarProvider } from "@/context/dashboard-sidebar-context";
 import { Box, Stack, styled } from "@mui/material";
 

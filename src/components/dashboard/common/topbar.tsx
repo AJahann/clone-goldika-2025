@@ -8,7 +8,7 @@ const PanelTopBar = styled(Box)({
   right: 0,
   left: 0,
   top: 0,
-  zIndex: 9999,
+  zIndex: 99,
 });
 
 const PanelTopBarWrap = styled(Box)(({ theme }) => ({

@@ -8,8 +8,8 @@ import {
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 import Link from "next/link";
 
-import Logo from "../home/hero/logo";
-import { PanelTitle } from "./styled";
+import Logo from "../../home/hero/logo";
+import { PanelTitle } from "../styled";
 import WalletChart from "./wallet-chart";
 
 const WalletContainer = styled(Box)(({ theme }) => ({
