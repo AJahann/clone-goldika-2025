@@ -9,6 +9,7 @@ import { Box, Button, Stack, styled, Typography } from "@mui/material";
 import Link from "next/link";
 
 import Chart from "../home/chart";
+import { PanelTitle } from "./styled";
 
 interface ActionProps {
   title: string;
@@ -64,16 +65,6 @@ const DirectionsContainer = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down("md")]: {},
 }));
 
-const PanelTitle = styled(Typography)(({ theme }) => ({
-  margin: "12px 0",
-  fontSize: "2.5rem",
-  color: theme.palette.common.white,
-
-  [theme.breakpoints.down("md")]: {
-    textAlign: "center",
-  },
-}));
-
 function DashboardActionBox({
   title,
   txt,
@@ -118,7 +109,7 @@ const Dashboard = () => {
   return (
     <Stack>
       <PanelTitle variant="h1">خانه</PanelTitle>
-      <DirectionsContainer mt={3}>
+      <DirectionsContainer>
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.buy}
           link="/trade?action=buy"
