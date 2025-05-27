@@ -21,6 +21,18 @@ interface ActionProps {
   link?: string;
 }
 
+const PanelContainer = styled(Box)(({ theme }) => ({
+  padding: "28px 24px",
+  margin: "0 auto",
+  maxWidth: "60rem",
+  width: "100%",
+  boxSizing: "border-box",
+
+  [theme.breakpoints.down(840)]: {
+    padding: theme.spacing(2),
+  },
+}));
+
 const DashboardBox = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
   padding: "18px",
@@ -107,7 +119,7 @@ function DashboardActionBox({
 
 const Dashboard = () => {
   return (
-    <Stack>
+    <PanelContainer>
       <PanelTitle variant="h1">خانه</PanelTitle>
       <DirectionsContainer>
         <DashboardActionBox
@@ -143,7 +155,7 @@ const Dashboard = () => {
       >
         <Chart />
       </Box>
-    </Stack>
+    </PanelContainer>
   );
 };
 
