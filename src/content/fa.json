@@ -200,5 +200,86 @@
   },
   "contact": {
     "contact": "ارتباط با آ مارکت"
+  },
+  "dashboard": {
+    "dashboard": {
+      "home": "خانه",
+      "buy_from_brand": "خرید از آ مارکت:",
+      "sell_to_brand": "فروش به آ مارکت:",
+      "gold": "(هرگرم طلای ۱۸ عیار)",
+      "toman": "تومان",
+      "buy": "خرید",
+      "sell": "فروش",
+      "amount": "موجودی کیف طلا:",
+      "increase_wallet": "افزایش موجودی"
+    },
+    "transaction": {
+      "withdraw": "برداشت",
+      "deposit": "واریز",
+      "amount": "مبلغ واریز",
+      "withdraw_amount": "مبلغ برداشت",
+      "balance": "موجودی",
+      "withdraw_alert": "فرآیند برداشت نهایتاً یک روز کاری زمان خواهد.",
+      "toman": "تومان",
+      "my_cards": "کارت های من",
+      "add_card": "افزودن کارت",
+      "pay": "پرداخت",
+      "add_bank_card": "افزودن کارت بانکی",
+      "card_number": "شماره کارت",
+      "card_name": "نام انتخابی",
+      "add": "افزودن",
+      "cancel": "انصراف",
+      "no_card_alert": "کارتی در سامانه تعریف نشده است.",
+      "add_card_alert": "مالکیت کارت باید به نام خودتان باشد"
+    },
+    "trade": {
+      "title": "معامله‌ی طلا",
+      "buy": "خرید",
+      "sell": "فروش",
+      "price": {
+        "label": "قیمت $t(dashboard.trade.{{type}})",
+        "unit": "(هرگرم طلای ۱۸ عیار)"
+      },
+      "totalValue": {
+        "label": "ارزش کل",
+        "unit": "تومان"
+      },
+      "goldAmount": {
+        "label": "مقدار طلا",
+        "unit": "گرم"
+      },
+      "walletBalance": "موجودی کیف پول: {{amount}} تومان",
+      "goldBalance": "موجودی کیف طلا: {{amount}} گرم",
+      "actionButton": "$t(dashboard.trade.{{type}})"
+    },
+    "order": {
+      "title": "دریافت طلا",
+      "goldBalance": "موجودی طلا: {{amount}} گرم",
+      "filtersButton": "فیلترها",
+      "deliveryAlert": "تحویل طلا به صورت حضوری و در شعبه اداری گلدیکا صورت می‌گیرد. به علت محدودیت‌های ارسال پستی طلا و جواهر، امکان ارسال به صورت پستی یا پیک میسر نمی‌باشد.",
+      "addToCart": "افزودن به سبد",
+      "filters": {
+        "title": "فیلترها",
+        "weight": "وزن (گرم)",
+        "brand": "برند",
+        "type": "نوع",
+        "clear": "پاک کردن",
+        "close": "بستن",
+        "clearAll": "پاک کردن همه",
+        "brandOptions": ["کهزاد", "لوکس", "پارسس"],
+        "typeOptions": ["آبشده", "سکه پارسیان"]
+      },
+      "cart": {
+        "title": "ثبت تحویل",
+        "emptyMessage": "سبد تحویل شما خالی است!",
+        "product": "محصول",
+        "weight": "وزن (گرم)",
+        "wages": "اجرت",
+        "quantity": "تعداد",
+        "remove": "حذف",
+        "cancel": "لغو",
+        "submit": "نهایی کردن"
+      }
+    }
   }
 }

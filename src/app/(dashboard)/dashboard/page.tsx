@@ -1,5 +1,7 @@
+import Dashboard from "@/components/dashboard/dashboard";
+
 const page = () => {
-  return <div>test dashboard route group</div>;
+  return <Dashboard />;
 };
 
 export default page;

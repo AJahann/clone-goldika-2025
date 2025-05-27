@@ -31,8 +31,14 @@ const theme = createTheme({
       main: "#f1ab1f",
       light: "#fcca17",
     },
+    grey: {
+      "400": "#84879a",
+    },
     secondary: {
       main: "#494c5a",
+    },
+    warning: {
+      main: "#191207",
     },
     success: {
       main: "#2ed64a",
@@ -85,7 +91,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontFamily: "inherit",
-          boxShadow: "none",
+          boxShadow: "none !important",
           borderRadius: "8px",
         },
       },
@@ -97,6 +103,13 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontFamily: "inherit",
+        },
+      },
+    },
+    MuiAlert: {
+      styleOverrides: {
+        root: {
+          borderRadius: "16px !important",
         },
       },
     },
