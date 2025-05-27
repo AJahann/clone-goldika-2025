@@ -1,4 +1,5 @@
 "use client";
+import FaContent from "@/content/fa.json";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
 import {
@@ -61,7 +62,7 @@ const CartDialogHeader = () => (
     sx={{ display: "flex", alignItems: "center", gap: 1, m: 0, p: 0 }}
   >
     <LocalGroceryStoreOutlinedIcon sx={{ ml: 1 }} />
-    ثبت تحویل
+    {FaContent.dashboard.order.cart.title}
   </DialogTitle>
 );
 const CartTableRow = ({ row }: { row: Card }) => (
@@ -88,11 +89,21 @@ const CartTable = ({ cart }: { cart: Card[] }) => (
   <Table>
     <TableHead>
       <TableRow>
-        <StyledTableCell>محصول</StyledTableCell>
-        <StyledTableCell align="right">وزن (گرم)</StyledTableCell>
-        <StyledTableCell align="right">اجرت</StyledTableCell>
-        <StyledTableCell align="right">تعداد</StyledTableCell>
-        <StyledTableCell align="right">حذف</StyledTableCell>
+        <StyledTableCell>
+          {FaContent.dashboard.order.cart.product}
+        </StyledTableCell>
+        <StyledTableCell align="right">
+          {FaContent.dashboard.order.cart.weight}
+        </StyledTableCell>
+        <StyledTableCell align="right">
+          {FaContent.dashboard.order.cart.wages}
+        </StyledTableCell>
+        <StyledTableCell align="right">
+          {FaContent.dashboard.order.cart.quantity}
+        </StyledTableCell>
+        <StyledTableCell align="right">
+          {FaContent.dashboard.order.cart.remove}
+        </StyledTableCell>
       </TableRow>
     </TableHead>
     <TableBody>
@@ -111,15 +122,21 @@ const CartDialogActions = ({
   isLoading: boolean;
 }) => (
   <DialogActions>
-    <Button onClick={onClose}>لغو</Button>
+    <Button onClick={onClose}>{FaContent.dashboard.order.cart.cancel}</Button>
     <Button variant="contained">
-      {isLoading ? <CircularProgress size={24} /> : "نهایی کردن"}
+      {isLoading ? (
+        <CircularProgress size={24} />
+      ) : (
+        FaContent.dashboard.order.cart.submit
+      )}
     </Button>
   </DialogActions>
 );
 
 const EmptyCart = () => (
-  <EmptyCartMessage>سبد تحویل شما خالی است!</EmptyCartMessage>
+  <EmptyCartMessage>
+    {FaContent.dashboard.order.cart.emptyMessage}
+  </EmptyCartMessage>
 );
 
 const UserCard: React.FC<Props> = ({ isOpen, onClose, cart }) => {

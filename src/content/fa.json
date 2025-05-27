@@ -251,6 +251,35 @@
       "walletBalance": "موجودی کیف پول: {{amount}} تومان",
       "goldBalance": "موجودی کیف طلا: {{amount}} گرم",
       "actionButton": "$t(dashboard.trade.{{type}})"
+    },
+    "order": {
+      "title": "دریافت طلا",
+      "goldBalance": "موجودی طلا: {{amount}} گرم",
+      "filtersButton": "فیلترها",
+      "deliveryAlert": "تحویل طلا به صورت حضوری و در شعبه اداری گلدیکا صورت می‌گیرد. به علت محدودیت‌های ارسال پستی طلا و جواهر، امکان ارسال به صورت پستی یا پیک میسر نمی‌باشد.",
+      "addToCart": "افزودن به سبد",
+      "filters": {
+        "title": "فیلترها",
+        "weight": "وزن (گرم)",
+        "brand": "برند",
+        "type": "نوع",
+        "clear": "پاک کردن",
+        "close": "بستن",
+        "clearAll": "پاک کردن همه",
+        "brandOptions": ["کهزاد", "لوکس", "پارسس"],
+        "typeOptions": ["آبشده", "سکه پارسیان"]
+      },
+      "cart": {
+        "title": "ثبت تحویل",
+        "emptyMessage": "سبد تحویل شما خالی است!",
+        "product": "محصول",
+        "weight": "وزن (گرم)",
+        "wages": "اجرت",
+        "quantity": "تعداد",
+        "remove": "حذف",
+        "cancel": "لغو",
+        "submit": "نهایی کردن"
+      }
     }
   }
 }

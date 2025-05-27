@@ -1,5 +1,6 @@
 "use client";
 import { InfoAlert } from "@/components/ui/styled-alerts";
+import FaContent from "@/content/fa.json";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
 import { useState } from "react";
@@ -76,16 +77,19 @@ const OrderHeader = ({
         }}
       >
         <Typography sx={{ fontSize: "2.5rem", lineHeight: "normal" }}>
-          دریافت طلا
+          {FaContent.dashboard.order.title}
         </Typography>
         <GoldBalanceBadge>
-          موجودی طلا: {new Intl.NumberFormat("fa").format(0)} گرم
+          {FaContent.dashboard.order.goldBalance.replace(
+            "{{amount}}",
+            new Intl.NumberFormat("fa").format(0),
+          )}
         </GoldBalanceBadge>
       </Stack>
 
       <Stack spacing={2} direction="row">
         <Button variant="contained" onClick={() => setIsOpenFilters(true)}>
-          <Typography>فیلترها</Typography>
+          <Typography>{FaContent.dashboard.order.filtersButton}</Typography>
         </Button>
         <Button
           sx={{ maxWidth: 48, minWidth: 48 }}
@@ -103,9 +107,7 @@ const DeliveryInfoAlert = () => (
   <Box my={3}>
     <InfoAlert>
       <Typography fontSize={14}>
-        تحویل طلا به صورت حضوری و در شعبه اداری گلدیکا صورت می‌گیرد. به علت
-        محدودیت‌های ارسال پستی طلا و جواهر، امکان ارسال به صورت پستی یا پیک میسر
-        نمی‌باشد.
+        {FaContent.dashboard.order.deliveryAlert}
       </Typography>
     </InfoAlert>
   </Box>
@@ -140,7 +142,7 @@ const ProductItem = ({ item }: { item: (typeof productsData)[0] }) => (
         </Typography>
         <ProductActionButton variant="outlined">
           <Typography sx={{ textWrap: "nowrap" }} fontSize={14}>
-            افزودن به سبد
+            {FaContent.dashboard.order.addToCart}
           </Typography>
         </ProductActionButton>
       </Stack>

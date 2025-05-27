@@ -1,4 +1,5 @@
 "use client";
+import FaContent from "@/content/fa.json";
 import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
 import {
   Box,
@@ -53,7 +54,7 @@ const SectionHeader = ({
     </Typography>
     {hasValue && (
       <Button size="small" sx={{ height: "24px" }} onClick={onClear}>
-        پاک کردن
+        {FaContent.dashboard.order.filters.clear}
       </Button>
     )}
   </Stack>
@@ -69,7 +70,7 @@ const WeightFilter = ({
   <FilterSection>
     <SectionHeader
       hasValue={weight !== 0}
-      title="وزن (گرم)"
+      title={FaContent.dashboard.order.filters.weight}
       onClear={() => setWeight(0)}
     />
     <Slider
@@ -123,10 +124,10 @@ const CheckboxFilter = ({
 const FilterFooter = ({ onClose }: { onClose: () => void }) => (
   <Stack spacing={2} direction="row">
     <Button fullWidth variant="contained" onClick={onClose}>
-      بستن
+      {FaContent.dashboard.order.filters.close}
     </Button>
     <Button fullWidth variant="outlined">
-      پاک کردن همه
+      {FaContent.dashboard.order.filters.clearAll}
     </Button>
   </Stack>
 );
@@ -148,7 +149,9 @@ const SidebarFilters: React.FC<Props> = ({ isOpen, onClose }) => {
         direction="row"
         justifyContent="space-between"
       >
-        <Typography variant="h3">فیلترها</Typography>
+        <Typography variant="h3">
+          {FaContent.dashboard.order.filters.title}
+        </Typography>
         <IconButton onClick={onClose}>
           <CloseRoundedIcon />
         </IconButton>
@@ -160,15 +163,15 @@ const SidebarFilters: React.FC<Props> = ({ isOpen, onClose }) => {
         <CheckboxFilter
           selectedValues={selectedBrands}
           setSelectedValues={setSelectedBrands}
-          title="برند"
-          options={["کهزاد", "لوکس", "پارسس"]}
+          title={FaContent.dashboard.order.filters.brand}
+          options={FaContent.dashboard.order.filters.brandOptions}
         />
 
         <CheckboxFilter
           selectedValues={selectedTypes}
           setSelectedValues={setSelectedTypes}
-          title="نوع"
-          options={["آبشده", "سکه پارسیان"]}
+          title={FaContent.dashboard.order.filters.type}
+          options={FaContent.dashboard.order.filters.typeOptions}
         />
       </Box>
 
