@@ -1,6 +1,7 @@
 "use client";
 
 import FaContnet from "@/content/fa.json";
+import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
 import { Box, Button, styled, Typography } from "@mui/material";
 import Link from "next/link";
 
@@ -39,13 +40,15 @@ const ActionButton = styled(Button)(({ theme }) => ({
 }));
 
 const JoinBtn = () => {
+  const { user } = useUserProfile();
+
   return (
     <Box>
       <BtnWrapper>
         <ContentWrapper>
           <BtnTitle variant="h1">{FaContnet.home.start_trade}</BtnTitle>
 
-          <Link passHref href="/login">
+          <Link passHref href={user ? "/dashboard" : "/login"}>
             <ActionButton variant="contained" color="primary">
               {FaContnet.home.login_to_brand}
             </ActionButton>
