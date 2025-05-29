@@ -212,6 +212,7 @@
       "buy": "خرید",
       "sell": "فروش",
       "amount": "موجودی کیف طلا:",
+      "cash_amount": "موجودی کیف پول:",
       "increase_wallet": "افزایش موجودی"
     },
     "transaction": {

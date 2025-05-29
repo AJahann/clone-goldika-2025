@@ -51,7 +51,14 @@ export const useUserProfile = () => {
     queryKey: ["userProfile"],
     queryFn: fetchUserProfile,
     enabled: hasToken,
-    retry: 3,
+    retry: (failureCount, error) => {
+      if (error.message.includes("401")) {
+        return false;
+      }
+      return failureCount < 3;
+    },
+    staleTime: 5 * 60 * 1000,
+    gcTime: 10 * 60 * 1000,
   });
 
   return {

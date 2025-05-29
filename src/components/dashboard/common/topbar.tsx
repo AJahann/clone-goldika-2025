@@ -1,7 +1,17 @@
 "use client";
 import { useSidebar } from "@/context/dashboard-sidebar-context";
-import { MenuRounded, PersonRounded } from "@mui/icons-material";
-import { Box, Button, Stack, styled, Typography } from "@mui/material";
+import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
+import { toPersianDigits } from "@/utils/to-persian-digits";
+import { ErrorOutline, MenuRounded, PersonRounded } from "@mui/icons-material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Stack,
+  styled,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 
 const PanelTopBar = styled(Box)({
   position: "sticky",
@@ -17,29 +27,66 @@ const PanelTopBarWrap = styled(Box)(({ theme }) => ({
   justifyContent: "space-between",
   alignItems: "center",
   backgroundColor: theme.palette.secondary.main,
+  height: theme.spacing(8),
 }));
 
 const TopBarCloseMenuBtn = styled(Button)(({ theme }) => ({
-  width: 40,
-  height: 40,
-  borderRadius: "50%",
-  color: theme.palette.common.white,
-  minWidth: 40,
+  "width": 40,
+  "height": 40,
+  "borderRadius": "50%",
+  "color": theme.palette.common.white,
+  "minWidth": 40,
+  "&:hover": {
+    backgroundColor: theme.palette.secondary.dark,
+  },
 }));
+
+const UserProfileDisplay = () => {
+  const { user, isLoading, isError, error } = useUserProfile();
+
+  if (isLoading) {
+    return <CircularProgress size={16} color="inherit" />;
+  }
+
+  if (isError) {
+    return (
+      <Tooltip title={error?.message ?? "Failed to load user profile"}>
+        <ErrorOutline color="error" fontSize="small" />
+      </Tooltip>
+    );
+  }
+
+  if (!user?.phone) {
+    return null;
+  }
+
+  return (
+    <Stack alignItems="center" gap={1} direction="row">
+      <Typography variant="body2" noWrap>
+        {toPersianDigits(user.phone)}
+      </Typography>
+      <PersonRounded fontSize="small" />
+    </Stack>
+  );
+};
 
 const Topbar = () => {
   const { toggleSidebar } = useSidebar();
 
   return (
-    <PanelTopBar>
+    <PanelTopBar role="banner">
       <PanelTopBarWrap>
-        <TopBarCloseMenuBtn onClick={toggleSidebar}>
+        <TopBarCloseMenuBtn
+          aria-label="Toggle sidebar"
+          data-testid="sidebar-toggle"
+          onClick={toggleSidebar}
+        >
           <MenuRounded sx={{ fontSize: "1.5rem" }} />
         </TopBarCloseMenuBtn>
-        <Stack alignItems="flex-start" gap={1} direction="row">
-          <Typography>۰۰۰۰۰۰۰</Typography>
-          <PersonRounded />
-        </Stack>
+
+        <Box>
+          <UserProfileDisplay />
+        </Box>
       </PanelTopBarWrap>
     </PanelTopBar>
   );
