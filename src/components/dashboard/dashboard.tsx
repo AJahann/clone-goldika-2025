@@ -121,7 +121,7 @@ const Dashboard = () => {
 
   return (
     <PanelContainer>
-      <PanelTitle variant="h1">خانه</PanelTitle>
+      <PanelTitle variant="h1">{FaContent.dashboard.dashboard.home}</PanelTitle>
       <DirectionsContainer>
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.buy}

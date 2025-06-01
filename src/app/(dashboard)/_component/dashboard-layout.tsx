@@ -2,7 +2,7 @@
 import SideBar from "@/components/dashboard/common/sidebar";
 import Topbar from "@/components/dashboard/common/topbar";
 import { SidebarProvider } from "@/context/dashboard-sidebar-context";
-import { Stack } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 
 interface Props {
   children: React.ReactNode;
@@ -15,7 +15,13 @@ const DashboardLayout = ({ children }: Props) => {
         <SideBar />
         <Stack flex={1}>
           <Topbar />
-          {children}
+          <Box
+            sx={{
+              padding: "12px 24px 28px",
+            }}
+          >
+            {children}
+          </Box>
         </Stack>
       </Stack>
     </SidebarProvider>

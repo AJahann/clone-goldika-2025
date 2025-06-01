@@ -1,5 +1,7 @@
 "use client";
 import FaContent from "@/content/fa.json";
+import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
+import { toPersianDigits } from "@/utils/to-persian-digits";
 import { AccountBalance } from "@mui/icons-material";
 import {
   Box,
@@ -50,13 +52,20 @@ const CardNumber = styled(Typography)(({ theme }) => ({
 const MyCards = () => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const isLoading = false;
+  const { user, isLoading, isError, error } = useUserProfile();
 
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (isLoading) {
     return (
       <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
         <CircularProgress size={38} />
+      </Box>
+    );
+  }
+
+  if (isError) {
+    return (
+      <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
+        <Typography>{error?.message}</Typography>
       </Box>
     );
   }
@@ -72,20 +81,14 @@ const MyCards = () => {
         </Button>
       </CardsHeader>
 
-      {[
-        {
-          id: 1,
-          cardName: "بانک ملت",
-          cardNumber: "1234 1234 1234 1234",
-        },
-      ].map((card) => (
+      {user?.cards.map((card) => (
         <CardItem key={card.id}>
           <AccountBalance
             sx={{ fontSize: 56, color: theme.palette.grey[400] }}
           />
           <CardTextContainer>
-            <CardName>{card.cardName}</CardName>
-            <CardNumber>{card.cardNumber}</CardNumber>
+            <CardName>{toPersianDigits(card.cardName)}</CardName>
+            <CardNumber dir="ltr">{`****-****-****-${toPersianDigits(card.last4)}`}</CardNumber>
           </CardTextContainer>
         </CardItem>
       ))}

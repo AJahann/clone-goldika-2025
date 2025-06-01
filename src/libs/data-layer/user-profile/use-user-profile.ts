@@ -16,8 +16,8 @@ export interface UserProfile {
   };
   cards: {
     id: string;
-    cardNumber: string;
     cardName: string;
+    last4: string;
   }[];
   basket: {
     id: string;

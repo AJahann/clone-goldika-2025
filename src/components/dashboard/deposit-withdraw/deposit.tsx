@@ -1,17 +1,17 @@
 "use client";
 import FaContent from "@/content/fa.json";
+import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
 import { Add } from "@mui/icons-material";
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, CircularProgress, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
 import StyledTextField from "../../ui/styled-text-field";
+import { PanelTitle } from "../styled";
 import MyCards from "./my-cards";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import NoCard from "./no-card";
 import {
   DepositContainer,
   DepositContent,
-  DepositTitle,
   PresetAmountButton,
   PresetAmountRow,
   PresetAmountsContainer,
@@ -19,11 +19,12 @@ import {
 } from "./styled";
 
 const Deposit = () => {
+  const { user, isLoading, isError, error } = useUserProfile();
   const [amount, setAmount] = useState("");
 
   return (
     <DepositContainer>
-      <DepositTitle>{FaContent.dashboard.transaction.deposit}</DepositTitle>
+      <PanelTitle>{FaContent.dashboard.transaction.deposit}</PanelTitle>
 
       <DepositContent>
         <StyledTextField
@@ -75,8 +76,15 @@ const Deposit = () => {
         </PresetAmountsContainer>
 
         <Box mt={3}>
-          {/* <NoCard /> */}
-          <MyCards />
+          {isLoading ? (
+            <Stack alignItems="center">
+              <CircularProgress size={36} />
+            </Stack>
+          ) : user?.cards.length ? (
+            <MyCards />
+          ) : (
+            <NoCard />
+          )}
         </Box>
       </DepositContent>
 

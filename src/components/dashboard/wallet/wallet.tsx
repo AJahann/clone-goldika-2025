@@ -1,96 +1,50 @@
 "use client";
 
+import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
+import { toPersianDigits } from "@/utils/to-persian-digits";
 import {
   AccountBalanceWalletOutlined,
   SellOutlined,
   StickyNote2Outlined,
 } from "@mui/icons-material";
-import { Box, Button, Stack, styled, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Link from "next/link";
 
 import Logo from "../../home/hero/logo";
 import { PanelTitle } from "../styled";
+import {
+  LogoContainer,
+  WalletActionButton,
+  WalletActions,
+  WalletContainer,
+  WalletItem,
+  WalletItemSubtext,
+  WalletItemText,
+  WalletsList,
+  WalletTopText,
+} from "./styled";
 import WalletChart from "./wallet-chart";
 
-const WalletContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  borderRadius: "1rem",
-  padding: theme.spacing(3, 1.5, 1.5, 1.5),
-}));
-
-const WalletTopText = styled(Typography)(({ theme }) => ({
-  fontSize: "18px",
-  textAlign: "center",
-  color: theme.palette.text.primary,
-}));
-
-const WalletActions = styled(Stack)(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  padding: theme.spacing(0, 1.5),
-  flexDirection: "row",
-  gap: theme.spacing(2),
-}));
-
-const WalletActionButton = styled(Button)(({ theme }) => ({
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: theme.spacing(1),
-  borderRadius: "16px",
-  padding: theme.spacing(1),
-  color: theme.palette.text.primary,
-  textDecoration: "none",
-}));
-
-const WalletsList = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(4),
-  padding: theme.spacing(1, 2, 3, 2),
-  backgroundColor: theme.palette.secondary.main,
-  borderRadius: "8px",
-}));
-
-const WalletItem = styled(Box)(({ theme }) => ({
-  marginTop: theme.spacing(1),
-  padding: theme.spacing(1, 1.5),
-  backgroundColor: theme.palette.background.default,
-  borderRadius: "6px",
-  display: "flex",
-  alignItems: "center",
-}));
-
-const WalletItemText = styled(Typography)(({ theme }) => ({
-  fontSize: "18px",
-  lineHeight: "normal",
-  fontWeight: "bold",
-  color: theme.palette.common.white,
-}));
-
-const WalletItemSubtext = styled(Typography)(({ theme }) => ({
-  fontSize: "16px",
-  marginTop: theme.spacing(1),
-  display: "block",
-  color: theme.palette.text.secondary,
-}));
-
-const LogoContainer = styled(Box)(({ theme }) => ({
-  width: "40px",
-  height: "40px",
-  marginRight: theme.spacing(2),
-  color: theme.palette.primary.main,
-}));
-
 const WalletPage = () => {
+  const { user } = useUserProfile();
+
   return (
     <Box
       sx={{
         maxWidth: "480px",
+        width: "100%",
         margin: "0 auto",
       }}
     >
       <PanelTitle>کیف دارایی</PanelTitle>
 
       <WalletContainer>
-        <WalletTopText>{0} تومان</WalletTopText>
+        <WalletTopText>
+          {user?.wallet.cashBalance
+            ? Intl.NumberFormat("fa").format(user.wallet.cashBalance)
+            : toPersianDigits(0)}{" "}
+          تومان
+        </WalletTopText>
         <WalletChart hasWallet={false} />
         <WalletActions direction="row">
           <WalletActionButton fullWidth href="/deposit" LinkComponent={Link}>
@@ -106,6 +60,7 @@ const WalletPage = () => {
             <span>برداشت پول</span>
           </WalletActionButton>
         </WalletActions>
+
         <WalletsList>
           <Typography sx={{ padding: "4px" }} variant="body1">
             کیف‌ها
@@ -117,7 +72,12 @@ const WalletPage = () => {
             </LogoContainer>
             <Box>
               <WalletItemText>کیف طلایی</WalletItemText>
-              <WalletItemSubtext>{0} گرم</WalletItemSubtext>
+              <WalletItemSubtext>
+                {user?.wallet.goldAmount
+                  ? Intl.NumberFormat("fa").format(user.wallet.goldAmount)
+                  : toPersianDigits(0)}{" "}
+                گرم
+              </WalletItemSubtext>
             </Box>
           </WalletItem>
 
@@ -127,7 +87,12 @@ const WalletPage = () => {
             </LogoContainer>
             <Box>
               <WalletItemText>کیف پول</WalletItemText>
-              <WalletItemSubtext>{0} تومان</WalletItemSubtext>
+              <WalletItemSubtext>
+                {user?.wallet.cashBalance
+                  ? Intl.NumberFormat("fa").format(user.wallet.cashBalance)
+                  : toPersianDigits(0)}{" "}
+                تومان
+              </WalletItemSubtext>
             </Box>
           </WalletItem>
         </WalletsList>

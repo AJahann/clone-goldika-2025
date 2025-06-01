@@ -1,4 +1,4 @@
-import Deposit from "@/components/dashboard/deposit/deposit";
+import Deposit from "@/components/dashboard/deposit-withdraw/deposit";
 
 const page = () => {
   return <Deposit />;

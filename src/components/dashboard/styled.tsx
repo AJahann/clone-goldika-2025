@@ -1,7 +1,6 @@
 import { Box, Button, Stack, styled, Typography } from "@mui/material";
 
 const PanelContainer = styled(Box)(({ theme }) => ({
-  padding: "28px 24px",
   margin: "0 auto",
   maxWidth: "60rem",
   width: "100%",
