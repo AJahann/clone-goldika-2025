@@ -4,9 +4,11 @@ import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile"
 import { toPersianDigits } from "@/utils/to-persian-digits";
 import { AccountBalance } from "@mui/icons-material";
 import {
+  alpha,
   Box,
   Button,
   CircularProgress,
+  FormHelperText,
   Stack,
   styled,
   Typography,
@@ -25,12 +27,15 @@ const CardsHeader = styled(Stack)(({ theme }) => ({
 }));
 
 const CardItem = styled(Box)(({ theme }) => ({
-  width: "100%",
-  display: "flex",
-  padding: theme.spacing(1.5),
-  marginTop: theme.spacing(2),
-  border: `2px solid ${theme.palette.primary.main}`,
-  borderRadius: 16,
+  "width": "100%",
+  "display": "flex",
+  "padding": theme.spacing(1.5),
+  "marginTop": theme.spacing(2),
+  "borderRadius": 16,
+  "transition": "background-color 0.2s ease-in-out",
+  ":hover": {
+    backgroundColor: alpha(theme.palette.primary.main, 0.1),
+  },
 }));
 
 const CardTextContainer = styled(Box)(({ theme }) => ({
@@ -49,10 +54,17 @@ const CardNumber = styled(Typography)(({ theme }) => ({
   marginTop: theme.spacing(1),
 }));
 
-const MyCards = () => {
+interface Props {
+  selectedCard: string | null;
+  onChange: (value: string) => void;
+  error?: boolean;
+  helperText?: any;
+}
+
+const MyCards = ({ onChange, selectedCard, error, helperText }: Props) => {
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const { user, isLoading, isError, error } = useUserProfile();
+  const { user, isLoading, isError, error: profileError } = useUserProfile();
 
   if (isLoading) {
     return (
@@ -65,10 +77,14 @@ const MyCards = () => {
   if (isError) {
     return (
       <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-        <Typography>{error?.message}</Typography>
+        <Typography color="error">{profileError?.message}</Typography>
       </Box>
     );
   }
+
+  const handleCardChange = (cardId: string) => {
+    onChange(cardId);
+  };
 
   return (
     <Box>
@@ -82,7 +98,22 @@ const MyCards = () => {
       </CardsHeader>
 
       {user?.cards.map((card) => (
-        <CardItem key={card.id}>
+        <CardItem
+          key={card.id}
+          onClick={() => handleCardChange(card.id)}
+          sx={{
+            border:
+              selectedCard === card.id
+                ? `2px solid ${theme.palette.primary.main}`
+                : error
+                  ? `2px solid ${theme.palette.error.main}`
+                  : `2px solid ${theme.palette.border.primary}`,
+            backgroundColor:
+              selectedCard === card.id
+                ? alpha(theme.palette.primary.main, 0.1)
+                : undefined,
+          }}
+        >
           <AccountBalance
             sx={{ fontSize: 56, color: theme.palette.grey[400] }}
           />
@@ -92,6 +123,12 @@ const MyCards = () => {
           </CardTextContainer>
         </CardItem>
       ))}
+
+      {error && helperText && (
+        <FormHelperText sx={{ mt: 1 }} error>
+          {helperText}
+        </FormHelperText>
+      )}
     </Box>
   );
 };

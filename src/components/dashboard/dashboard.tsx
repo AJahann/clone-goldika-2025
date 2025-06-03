@@ -148,7 +148,7 @@ const Dashboard = () => {
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.increase_wallet}
           link="/deposit"
-          price={Intl.NumberFormat("fa").format(user?.wallet.goldAmount ?? 0)}
+          price={Intl.NumberFormat("fa").format(user?.wallet.cashBalance ?? 0)}
           title={FaContent.dashboard.dashboard.cash_amount}
           error={userError}
           icon={<AccountBalanceWalletOutlinedIcon fontSize="small" />}
