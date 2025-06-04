@@ -10,10 +10,9 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
-import StyledTextField from "../../ui/styled-text-field";
 import { PanelTitle } from "../styled";
-import MyCards from "./my-cards";
-import NoCard from "./no-card";
+import AmountInput from "./components/amount-input";
+import CardSelection from "./components/card-selection";
 import {
   DepositContainer,
   DepositContent,
@@ -65,78 +64,6 @@ const PresetAmounts = ({
   </PresetAmountsContainer>
 );
 
-const AmountInput = ({
-  formik,
-  handleAmountChange,
-}: {
-  formik: any;
-  handleAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) => (
-  <StyledTextField
-    helperText={formik.touched.amount && formik.errors.amount}
-    label={FaContent.dashboard.transaction.amount}
-    name="amount"
-    error={formik.touched.amount && Boolean(formik.errors.amount)}
-    onChange={handleAmountChange}
-    slotProps={{
-      input: {
-        endAdornment: (
-          <Typography>{FaContent.dashboard.transaction.toman}</Typography>
-        ),
-      },
-    }}
-    sx={{
-      background: (theme) => theme.palette.background.default,
-    }}
-    value={
-      formik.values.amount
-        ? Intl.NumberFormat("fa").format(+formik.values.amount)
-        : ""
-    }
-  />
-);
-
-const CardSelection = ({
-  isError,
-  isLoading,
-  user,
-  formik,
-  error,
-}: {
-  isError: boolean;
-  error: string;
-  isLoading: boolean;
-  user: any;
-  formik: any;
-}) => {
-  if (isError) {
-    return (
-      <Typography alignItems="center" color="error">
-        {error}
-      </Typography>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <Stack alignItems="center">
-        <CircularProgress size={36} />
-      </Stack>
-    );
-  }
-
-  return user?.cards.length ? (
-    <MyCards
-      helperText={formik.touched.cardId && formik.errors.cardId}
-      selectedCard={formik.values.cardId}
-      error={formik.touched.cardId && Boolean(formik.errors.cardId)}
-      onChange={(cardId) => formik.setFieldValue("cardId", cardId)}
-    />
-  ) : (
-    <NoCard />
-  );
-};
-
 const Deposit = () => {
   const { deposit, isDepositing, isDepositSuccess, depositError } =
     useDeposit();
@@ -183,6 +110,7 @@ const Deposit = () => {
       <DepositContent>
         <form onSubmit={formik.handleSubmit}>
           <AmountInput
+            label={FaContent.dashboard.transaction.deposit}
             formik={formik}
             handleAmountChange={handleAmountChange}
           />
@@ -203,14 +131,9 @@ const Deposit = () => {
 
       <Stack alignItems="center" mt={3}>
         <SubmitButton
+          disabled={user?.cards.length === 0 || isDepositing || !formik.dirty}
           variant="contained"
           onClick={() => formik.handleSubmit()}
-          disabled={
-            user?.cards.length === 0 ||
-            isDepositing ||
-            !formik.isValid ||
-            !formik.dirty
-          }
         >
           {isDepositing ? (
             <CircularProgress size={24} />

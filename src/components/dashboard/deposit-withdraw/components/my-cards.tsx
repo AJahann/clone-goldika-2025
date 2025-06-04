@@ -76,8 +76,10 @@ const MyCards = ({ onChange, selectedCard, error, helperText }: Props) => {
 
   if (isError) {
     return (
-      <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-        <Typography color="error">{profileError?.message}</Typography>
+      <Box sx={{ width: "100%" }}>
+        <Typography textAlign="center" color="error">
+          {profileError?.message}
+        </Typography>
       </Box>
     );
   }
