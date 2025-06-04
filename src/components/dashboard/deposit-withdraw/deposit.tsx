@@ -23,7 +23,7 @@ import {
 } from "./styled";
 
 const successNotify = () => toast.success("واریزی با موفقیت انجام شد.");
-const errorNotify = () => toast.error("واریزی با خطا مواجه شد.");
+const errorNotify = (err: string) => toast.error(err);
 
 const PRESET_AMOUNTS = [
   ["500000", "1000000"],
@@ -98,7 +98,7 @@ const Deposit = () => {
       successNotify();
       formik.resetForm();
     } else if (depositError) {
-      errorNotify();
+      errorNotify(depositError.message);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [depositError, isDepositSuccess]);
