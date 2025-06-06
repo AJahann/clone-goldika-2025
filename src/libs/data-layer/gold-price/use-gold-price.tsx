@@ -22,6 +22,8 @@ export const useGoldPrice = () => {
   const query = useQuery({
     queryKey: ["goldPrice"],
     queryFn: fetchGoldPrice,
+    staleTime: 60 * 1000,
+    refetchInterval: 60 * 1000,
   });
 
   return {

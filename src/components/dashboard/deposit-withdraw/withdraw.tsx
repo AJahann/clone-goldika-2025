@@ -17,14 +17,10 @@ import { useEffect, useMemo } from "react";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
 
+import { PanelTitle } from "../styled";
 import AmountInput from "./components/amount-input";
 import CardSelection from "./components/card-selection";
-import {
-  DepositContainer,
-  DepositContent,
-  DepositTitle,
-  SubmitButton,
-} from "./styled";
+import { DepositContainer, DepositContent, SubmitButton } from "./styled";
 
 const getValidationSchema = (maxAmount: number) =>
   Yup.object({
@@ -137,7 +133,7 @@ const Withdraw = () => {
 
   return (
     <DepositContainer>
-      <DepositTitle>{FaContent.dashboard.transaction.withdraw}</DepositTitle>
+      <PanelTitle>{FaContent.dashboard.transaction.withdraw}</PanelTitle>
 
       <DepositContent>
         <BalanceDisplay balance={user?.wallet.cashBalance} />
