@@ -1,9 +1,24 @@
 "use client";
+import type { Product } from "@/libs/data-layer/products/useProducts";
+
 import { InfoAlert } from "@/components/ui/styled-alerts";
 import FaContent from "@/content/fa.json";
+import { useBasket } from "@/libs/data-layer/basket/use-basket";
+import { useProducts } from "@/libs/data-layer/products/useProducts";
+import { useProductForm } from "@/libs/data-layer/products/useProductsForm";
+import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
-import { Box, Button, Container, Grid, Stack, Typography } from "@mui/material";
-import { useState } from "react";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Grid,
+  Stack,
+  Typography,
+} from "@mui/material";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import OrderFilters from "./sidebar-filters";
 import {
@@ -14,51 +29,14 @@ import {
 } from "./styled";
 import UserCard from "./user-card";
 
-const productsData = [
-  {
-    id: 4,
-    name: "سکه ۲ گرمی زردیس",
-    imgSrc: "سکه%20۲%20گرمی%20زردیس",
-    wages: 70000,
-    weight: 2,
-    brand: "پارسس",
-    type: "سکه پارسیان",
-  },
-  {
-    id: 3,
-    name: "سکه ۲ گرمی زردیس",
-    imgSrc: "سکه%20۲%20گرمی%20زردیس",
-    wages: 70000,
-    weight: 2,
-    brand: "پارسس",
-    type: "سکه پارسیان",
-  },
-  {
-    id: 2,
-    name: "سکه ۲ گرمی زردیس",
-    imgSrc: "سکه%20۲%20گرمی%20زردیس",
-    wages: 70000,
-    weight: 2,
-    brand: "پارسس",
-    type: "سکه پارسیان",
-  },
-  {
-    id: 1,
-    name: "سکه ۲ گرمی زردیس",
-    imgSrc: "سکه%20۲%20گرمی%20زردیس",
-    wages: 70000,
-    weight: 2,
-    brand: "پارسس",
-    type: "سکه پارسیان",
-  },
-];
-
 const OrderHeader = ({
   setIsOpenFilters,
   setIsOpenCart,
+  goldBalance,
 }: {
   setIsOpenFilters: (value: boolean) => void;
   setIsOpenCart: (value: boolean) => void;
+  goldBalance: number;
 }) => {
   return (
     <Stack
@@ -82,7 +60,7 @@ const OrderHeader = ({
         <GoldBalanceBadge>
           {FaContent.dashboard.order.goldBalance.replace(
             "{{amount}}",
-            new Intl.NumberFormat("fa").format(0),
+            new Intl.NumberFormat("fa").format(goldBalance),
           )}
         </GoldBalanceBadge>
       </Stack>
@@ -113,44 +91,75 @@ const DeliveryInfoAlert = () => (
   </Box>
 );
 
-const ProductItem = ({ item }: { item: (typeof productsData)[0] }) => (
-  <Grid>
-    <ProductCard>
-      <ProductImage
-        height={260}
-        width={260}
-        alt={item.name}
-        quality={100}
-        src={`/images/panel/${item.imgSrc}.webp`}
-      />
-      <Stack
-        width="100%"
-        alignItems="center"
-        gap={1}
-        direction="row"
-        justifyContent="space-between"
-      >
-        <Typography
-          color="textPrimary"
-          fontSize={18}
-          sx={{
-            textOverflow: "ellipsis",
-            overflow: "hidden",
-          }}
-        >
-          {item.name}
-        </Typography>
-        <ProductActionButton variant="outlined">
-          <Typography sx={{ textWrap: "nowrap" }} fontSize={14}>
-            {FaContent.dashboard.order.addToCart}
-          </Typography>
-        </ProductActionButton>
-      </Stack>
-    </ProductCard>
-  </Grid>
-);
+const successNotif = () =>
+  toast.success("محصول با موفقیت به سبد خرید اضافه شد.");
+const errorNotif = (err: string) => toast.error(err);
 
-const ProductsGrid = ({ products }: { products: typeof productsData }) => (
+const ProductItem = ({ item }: { item: Product }) => {
+  const { addItem, isAddingItem, addItemError, isAddItemSuccess } = useBasket();
+
+  const handleAddItem = (productId: string) => {
+    if (!isAddingItem) {
+      addItem(productId);
+    }
+  };
+
+  useEffect(() => {
+    if (addItemError) {
+      errorNotif(addItemError.message);
+    }
+    if (isAddItemSuccess) {
+      successNotif();
+    }
+  }, [addItemError, isAddItemSuccess]);
+
+  return (
+    <Grid>
+      <ProductCard>
+        <ProductImage
+          height={260}
+          width={260}
+          alt={item.name}
+          quality={100}
+          src={item.imgData}
+        />
+        <Stack
+          width="100%"
+          alignItems="center"
+          gap={1}
+          direction="row"
+          justifyContent="space-between"
+        >
+          <Typography
+            color="textPrimary"
+            fontSize={18}
+            sx={{
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+            }}
+          >
+            {item.name}
+          </Typography>
+          <ProductActionButton
+            disabled={isAddingItem}
+            variant="outlined"
+            onClick={() => handleAddItem(item.id)}
+          >
+            {isAddingItem ? (
+              <CircularProgress size={18} />
+            ) : (
+              <Typography sx={{ textWrap: "nowrap" }} fontSize={14}>
+                {FaContent.dashboard.order.addToCart}
+              </Typography>
+            )}
+          </ProductActionButton>
+        </Stack>
+      </ProductCard>
+    </Grid>
+  );
+};
+
+const ProductsGrid = ({ products }: { products: Product[] }) => (
   <Grid
     spacing={2}
     container
@@ -170,7 +179,8 @@ const ProductsGrid = ({ products }: { products: typeof productsData }) => (
 );
 
 const OrderPickup = () => {
-  const [products, setProducts] = useState(productsData);
+  const { user } = useUserProfile();
+  const { data: products, isLoading, isError, error } = useProducts();
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenFilters, setIsOpenFilters] = useState(false);
 
@@ -179,23 +189,38 @@ const OrderPickup = () => {
       <OrderHeader
         setIsOpenCart={setIsOpenCart}
         setIsOpenFilters={setIsOpenFilters}
+        goldBalance={user?.wallet.goldAmount ?? 0}
       />
 
       <DeliveryInfoAlert />
 
-      <ProductsGrid products={products} />
+      {isLoading ? (
+        <Stack alignItems="center">
+          <CircularProgress size={32} />
+        </Stack>
+      ) : !products || products.length === 0 ? (
+        <Typography mt={8} textAlign="center" variant="h1" color="primary">
+          محصولی یافت نشد
+        </Typography>
+      ) : isError ? (
+        <Typography mt={8} textAlign="center" variant="h3" color="error">
+          {error.message}
+        </Typography>
+      ) : (
+        <ProductsGrid products={products} />
+      )}
 
       <UserCard
-        cart={[products[1]]}
+        cart={user?.basket ?? []}
         isOpen={isOpenCart}
         onClose={() => setIsOpenCart(false)}
       />
-      <OrderFilters
+      {/* <OrderFilters
         data={products}
         isOpen={isOpenFilters}
-        setData={setProducts}
+        // setData={setProducts}
         onClose={() => setIsOpenFilters(false)}
-      />
+      /> */}
     </Container>
   );
 };

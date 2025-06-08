@@ -22,7 +22,9 @@ export interface UserProfile {
   basket: {
     id: string;
     name: string;
-    price: number;
+    wages: string;
+    gram: number;
+    count: number;
   }[];
 }
 

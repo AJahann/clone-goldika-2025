@@ -47,15 +47,27 @@ const WalletPage = () => {
         </WalletTopText>
         <WalletChart hasWallet={false} />
         <WalletActions direction="row">
-          <WalletActionButton fullWidth href="/deposit" LinkComponent={Link}>
+          <WalletActionButton
+            fullWidth
+            href="/dashboard/deposit"
+            LinkComponent={Link}
+          >
             <AccountBalanceWalletOutlined sx={{ fontSize: 32 }} />
             <span>افزایش موجودی</span>
           </WalletActionButton>
-          <WalletActionButton fullWidth href="/reports" LinkComponent={Link}>
+          <WalletActionButton
+            fullWidth
+            href="/dashboard/reports"
+            LinkComponent={Link}
+          >
             <StickyNote2Outlined sx={{ fontSize: 32 }} />
             <span>گزارش</span>
           </WalletActionButton>
-          <WalletActionButton fullWidth href="/withdraw" LinkComponent={Link}>
+          <WalletActionButton
+            fullWidth
+            href="/dashboard/withdraw"
+            LinkComponent={Link}
+          >
             <SellOutlined sx={{ fontSize: 32 }} />
             <span>برداشت پول</span>
           </WalletActionButton>

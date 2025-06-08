@@ -155,32 +155,32 @@ const SideBar: React.FC = () => {
             <SideBarItem
               name="کیف و دارایی"
               icon={<PriceChangeOutlined />}
-              to="/wallet"
+              to="/dashboard/wallet"
             />
             <SideBarItem
               name="واریز پول"
               icon={<AttachMoneyOutlined />}
-              to="/deposit"
+              to="/dashboard/deposit"
             />
             <SideBarItem
               name="برداشت پول"
               icon={<MoneyOffCsredOutlined />}
-              to="/withdraw"
+              to="/dashboard/withdraw"
             />
             <SideBarItem
               name="معامله طلا"
               icon={<StoreOutlined />}
-              to="/trade"
+              to="/dashboard/trade"
             />
             <SideBarItem
               name="گزارش"
               icon={<SummarizeOutlined />}
-              to="/reports"
+              to="/dashboard/reports"
             />
             <SideBarItem
               name="دریافت طلا"
               icon={<AddShoppingCartOutlined />}
-              to="/order-pickup"
+              to="/dashboard/order-pickup"
             />
           </SidebarMenuWrapper>
 

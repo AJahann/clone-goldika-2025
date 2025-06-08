@@ -125,7 +125,7 @@ const Dashboard = () => {
       <DirectionsContainer>
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.buy}
-          link="/trade?action=buy"
+          link="/dashboard/trade?action=buy"
           price={Intl.NumberFormat("fa").format(goldPrice?.buyPrice ?? 0)}
           title={FaContent.dashboard.dashboard.buy_from_brand}
           txt={FaContent.dashboard.dashboard.gold}
@@ -136,7 +136,7 @@ const Dashboard = () => {
         />
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.sell}
-          link="/trade?action=sell"
+          link="/dashboard/trade?action=sell"
           price={Intl.NumberFormat("fa").format(goldPrice?.sellPrice ?? 0)}
           title={FaContent.dashboard.dashboard.sell_to_brand}
           txt={FaContent.dashboard.dashboard.gold}
@@ -147,7 +147,7 @@ const Dashboard = () => {
         />
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.increase_wallet}
-          link="/deposit"
+          link="/dashboard/deposit"
           price={Intl.NumberFormat("fa").format(user?.wallet.cashBalance ?? 0)}
           title={FaContent.dashboard.dashboard.cash_amount}
           error={userError}

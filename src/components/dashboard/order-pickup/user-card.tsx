@@ -1,5 +1,8 @@
 "use client";
+import type { UserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
+
 import FaContent from "@/content/fa.json";
+import { useBasket } from "@/libs/data-layer/basket/use-basket";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
 import {
@@ -18,7 +21,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialog-paper": {
@@ -43,18 +47,10 @@ const EmptyCartMessage = styled(Typography)(({ theme }) => ({
   padding: theme.spacing(4, 6),
 }));
 
-interface Card {
-  id: number;
-  name: string;
-  weight: number;
-  wages: number;
-  count?: number;
-}
-
 interface Props {
   isOpen: boolean;
   onClose: () => void;
-  cart: Card[];
+  cart: UserProfile["basket"];
 }
 
 const CartDialogHeader = () => (
@@ -65,27 +61,62 @@ const CartDialogHeader = () => (
     {FaContent.dashboard.order.cart.title}
   </DialogTitle>
 );
-const CartTableRow = ({ row }: { row: Card }) => (
-  <TableRow key={row.id}>
-    <StyledTableCell sx={{ fontSize: "0.75rem" }}>{row.name}</StyledTableCell>
-    <StyledTableCell align="right">
-      {Intl.NumberFormat("fa").format(row.weight)}
-    </StyledTableCell>
-    <StyledTableCell align="right">
-      {Intl.NumberFormat("fa").format(row.wages)}
-    </StyledTableCell>
-    <StyledTableCell align="right">
-      {"count" in row ? Intl.NumberFormat("fa").format(row.count ?? 1) : "۱"}
-    </StyledTableCell>
-    <StyledTableCell align="right">
-      <IconButton>
-        <RemoveShoppingCartOutlinedIcon fontSize="small" />
-      </IconButton>
-    </StyledTableCell>
-  </TableRow>
-);
 
-const CartTable = ({ cart }: { cart: Card[] }) => (
+const successNotif = () => toast.success("محصول با موفقیت از سبد خرید حذف شد.");
+const errorNotif = (err: string) => toast.error(err);
+
+const CartTableRow = ({ row }: { row: UserProfile["basket"][number] }) => {
+  const { removeItem, removeItemError, isRemoveItemSuccess, isRemovingItem } =
+    useBasket(); //here
+
+  const handleRemoveItem = () => {
+    if (!isRemovingItem) {
+      removeItem(row.id);
+    }
+
+    console.log(row);
+  };
+
+  useEffect(() => {
+    if (removeItemError) {
+      errorNotif(removeItemError.message);
+    }
+    if (isRemoveItemSuccess) {
+      successNotif();
+    }
+  }, [removeItemError, isRemoveItemSuccess]);
+
+  return (
+    <TableRow key={row.id}>
+      <StyledTableCell sx={{ fontSize: "0.75rem" }}>{row.name}</StyledTableCell>
+      <StyledTableCell align="center">
+        {Intl.NumberFormat("fa").format(row.gram)}
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        {Intl.NumberFormat("fa").format(+row.wages)}
+      </StyledTableCell>
+      <StyledTableCell align="center">
+        {"count" in row ? Intl.NumberFormat("fa").format(row.count) : "۱"}
+      </StyledTableCell>
+      <StyledTableCell
+        align="left"
+        sx={{
+          pr: 1,
+        }}
+      >
+        <IconButton onClick={handleRemoveItem}>
+          {isRemovingItem ? (
+            <CircularProgress size={19} />
+          ) : (
+            <RemoveShoppingCartOutlinedIcon fontSize="small" />
+          )}
+        </IconButton>
+      </StyledTableCell>
+    </TableRow>
+  );
+};
+
+const CartTable = ({ cart }: { cart: UserProfile["basket"] }) => (
   <Table>
     <TableHead>
       <TableRow>
