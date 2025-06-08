@@ -13,17 +13,20 @@ import {
 } from "@mui/icons-material";
 import {
   Box,
+  ButtonBase,
   Stack,
   styled,
   Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
+import { useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 
 import LogoSvg from "./logo-svg";
+import { logoutAction } from "./logout-action";
 
 const SidebarMenu = styled(Box)(({ theme }) => ({
   height: "100%",
@@ -70,10 +73,45 @@ const SidebarItemName = styled(Typography)(({ theme }) => ({
   marginRight: theme.spacing(4),
 }));
 
-const SidebarLogoutButton = styled(Box)(({ theme }) => ({
+const SidebarLogoutButton = styled(ButtonBase)(({ theme }) => ({
+  width: "100%",
   margin: theme.spacing(1, 0),
   cursor: "pointer",
 }));
+
+const Logout = () => {
+  const theme = useTheme();
+  const queryClient = useQueryClient();
+
+  const handleSubmit = () => {
+    queryClient.clear();
+  };
+
+  return (
+    <Box action={logoutAction} component="form" onSubmit={handleSubmit}>
+      <SidebarLogoutButton disableRipple type="submit" disableTouchRipple>
+        <Stack
+          direction="row"
+          sx={{
+            "width": "100%",
+            "gap": "12px",
+            "padding": theme.spacing(1.5, 2),
+            "color": theme.palette.common.white,
+            "alignItems": "center",
+            "&:hover": {
+              backgroundColor: theme.palette.action.hover,
+            },
+          }}
+        >
+          <SidebarItemIcon>
+            <LogoutOutlined />
+          </SidebarItemIcon>
+          <SidebarItemName>خروج</SidebarItemName>
+        </Stack>
+      </SidebarLogoutButton>
+    </Box>
+  );
+};
 
 interface SideBarItemProps {
   name: string;
@@ -184,9 +222,7 @@ const SideBar: React.FC = () => {
             />
           </SidebarMenuWrapper>
 
-          <SidebarLogoutButton>
-            <SideBarItem name="خروج" icon={<LogoutOutlined />} to="/" />
-          </SidebarLogoutButton>
+          <Logout />
         </SidebarMenu>
       </Stack>
     </Stack>
