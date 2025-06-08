@@ -218,7 +218,8 @@ const SidebarFilters: React.FC<Props> = ({
 
   useEffect(() => {
     handleProductFilter();
-  }, [weight, selectedBrands, selectedTypes, handleProductFilter]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [weight, selectedBrands, selectedTypes]);
 
   if (pureData.length === 0) {
     return (
@@ -240,9 +241,10 @@ const SidebarFilters: React.FC<Props> = ({
             <CloseRoundedIcon />
           </IconButton>
         </FilterHeader>
-        <Box sx={{ p: 2 }}>
-          <Typography color="text.secondary">
-            No products available for filtering
+
+        <Box sx={{ height: "100%", p: 2 }}>
+          <Typography textAlign="center" color="textSecondary">
+            محصولی موجود نیست
           </Typography>
         </Box>
         <FilterFooter resetFilters={resetAllFilters} onClose={onClose} />
