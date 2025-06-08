@@ -32,6 +32,7 @@
     "contact": "تماس با ما",
     "faq": "سوالات متداول",
     "login_sign_up": "ورود | ثبت نام",
+    "dashboard": "پنل کاربری",
     "brand_name": "آ مارکت",
     "title": "بازار امن طلا",
     "secure_market": "بازار امن طلا",
@@ -211,6 +212,7 @@
       "buy": "خرید",
       "sell": "فروش",
       "amount": "موجودی کیف طلا:",
+      "cash_amount": "موجودی کیف پول:",
       "increase_wallet": "افزایش موجودی"
     },
     "transaction": {

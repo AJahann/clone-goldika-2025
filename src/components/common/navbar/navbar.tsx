@@ -1,12 +1,15 @@
 "use client";
 
 import FaContent from "@/content/fa.json";
+import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
+import { toPersianDigits } from "@/utils/to-persian-digits";
 import MenuIcon from "@mui/icons-material/Menu";
 import {
   alpha,
   AppBar,
   Box,
   Button,
+  CircularProgress,
   Drawer,
   IconButton,
   Stack,
@@ -21,8 +24,14 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const AuthButton = () => {
+  const { user, isLoading } = useUserProfile();
+
+  const data = user
+    ? `${FaContent.home.dashboard} - ${toPersianDigits(user.phone)}`
+    : FaContent.home.login_sign_up;
+
   return (
-    <Link passHref href="/login">
+    <Link passHref href={user ? "/dashboard" : "/login"}>
       <Button
         variant="outlined"
         color="primary"
@@ -32,7 +41,7 @@ const AuthButton = () => {
           padding: "3px 9px",
         }}
       >
-        {FaContent.home.login_sign_up}
+        {isLoading ? <CircularProgress size={18} /> : data}
       </Button>
     </Link>
   );

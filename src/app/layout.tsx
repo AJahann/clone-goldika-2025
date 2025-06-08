@@ -2,6 +2,7 @@ import "../styles/global.css";
 
 import MuiThemeProvider from "@/providers/mui-theme-provider";
 import QueryProvider from "@/providers/query-provider";
+import { Toaster } from "react-hot-toast";
 
 import MainLayoutStyle from "./_component/main-layout-style";
 
@@ -12,6 +13,7 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
         <MuiThemeProvider>
           <QueryProvider>
             <MainLayoutStyle>{children}</MainLayoutStyle>
+            <Toaster />
           </QueryProvider>
         </MuiThemeProvider>
       </body>

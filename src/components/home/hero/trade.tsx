@@ -2,86 +2,188 @@
 import { StyledTab, StyledTabs } from "@/components/ui/styled-tabs";
 import StyledTextField from "@/components/ui/styled-text-field";
 import FaContent from "@/content/fa.json";
-import {
-  Box,
-  Button,
-  Stack,
-  styled,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { useGoldPrice } from "@/libs/data-layer/gold-price/use-gold-price";
+import { toEnglishDigits } from "@/utils/to-english-digits";
+import { toPersianDigits } from "@/utils/to-persian-digits";
+import { Box, Stack, Typography, useTheme } from "@mui/material";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
+import {
+  ActionButton,
+  BuyPrice,
+  InputsContainer,
+  LogoContainer,
+  PriceHeader,
+  PriceItem,
+  SellPrice,
+  TradingMain,
+} from "./hero-styled";
 import LogoSvg from "./logo";
 
-const PriceHeader = styled(Box)(({ theme }) => ({
-  display: "flex",
-  alignItems: "center",
-  gap: theme.spacing(1.5),
-  width: "100%",
-  justifyContent: "space-evenly",
-  padding: theme.spacing(1, 0),
-}));
+const PriceDisplay = ({
+  label,
+  price,
+  isBuy,
+}: {
+  label: string;
+  price: number | undefined;
+  isBuy: boolean;
+}) => {
+  const PriceComponent = isBuy ? BuyPrice : SellPrice;
+  return (
+    <PriceItem>
+      <Typography variant="body1">{label}</Typography>
+      <PriceComponent>
+        <span>{Intl.NumberFormat("fa").format(price ?? 0)}</span>
+        <span>{FaContent.home.trade.currency}</span>
+      </PriceComponent>
+    </PriceItem>
+  );
+};
 
-const PriceItem = styled(Box)(({ theme }) => ({
-  color: theme.palette.common.white,
-  maxWidth: "11rem",
-  alignItems: "center",
-  display: "flex",
-  fontSize: "16px",
-  lineHeight: "24px",
-  flexDirection: "column",
-}));
+const TradeHeader = ({
+  goldPrice,
+}: {
+  goldPrice?: { buyPrice: number; sellPrice: number };
+}) => (
+  <PriceHeader>
+    <PriceDisplay
+      isBuy
+      label={FaContent.home.trade.buy_price}
+      price={goldPrice?.buyPrice}
+    />
 
-const PriceValue = styled(Box)(({ theme }) => ({
-  display: "flex",
-  gap: theme.spacing(0.5),
-  fontWeight: theme.typography.fontWeightBold,
-}));
+    <LogoContainer>
+      <LogoSvg />
+    </LogoContainer>
 
-const BuyPrice = styled(PriceValue)(({ theme }) => ({
-  color: theme.palette.success.main,
-}));
+    <PriceDisplay
+      isBuy={false}
+      label={FaContent.home.trade.sell_price}
+      price={goldPrice?.sellPrice}
+    />
+  </PriceHeader>
+);
 
-const SellPrice = styled(PriceValue)(({ theme }) => ({
-  color: theme.palette.error.main,
-}));
+const TradeInputs = ({
+  amount,
+  gram,
+  handleAmountChange,
+  handleGramChange,
+}: {
+  amount: string;
+  gram: string;
+  handleAmountChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleGramChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}) => {
+  const theme = useTheme();
 
-const LogoContainer = styled(Box)(({ theme }) => ({
-  "width": 40,
-  "height": 40,
-  "fontSize": "13px",
-  "color": theme.palette.primary.main,
-  "& svg": {
-    filter: "drop-shadow(0 0 0.7em)",
-    opacity: 1,
-  },
-}));
-
-const TradingMain = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.secondary.main,
-  marginTop: theme.spacing(1.5),
-  borderRadius: "12px",
-  overflow: "hidden",
-  width: "100%",
-}));
-
-const InputsContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(1),
-  paddingBottom: theme.spacing(2.5),
-}));
-
-const ActionButton = styled(Button)(({ theme }) => ({
-  marginTop: theme.spacing(2.125),
-  width: "88%",
-  border: `3px solid ${theme.palette.primary.main}80`,
-  borderRadius: 8,
-}));
+  return (
+    <InputsContainer>
+      <StyledTextField
+        label={FaContent.home.trade.total_value}
+        name={FaContent.home.trade.currency}
+        value={amount ? Intl.NumberFormat("fa").format(+amount) : ""}
+        onChange={handleAmountChange}
+        slotProps={{
+          input: {
+            endAdornment: FaContent.home.trade.currency,
+          },
+          htmlInput: {
+            maxLength: 9,
+          },
+        }}
+        sx={{
+          marginTop: theme.spacing(1.5),
+          background: theme.palette.background.paper,
+        }}
+      />
+      <StyledTextField
+        label={FaContent.home.trade.gold_amount}
+        name={FaContent.home.trade.unit}
+        value={toPersianDigits(gram)}
+        onChange={handleGramChange}
+        slotProps={{
+          input: {
+            endAdornment: FaContent.home.trade.unit,
+          },
+          htmlInput: {
+            maxLength: 3,
+          },
+        }}
+        sx={{
+          marginTop: theme.spacing(1.5),
+          background: theme.palette.background.paper,
+        }}
+      />
+    </InputsContainer>
+  );
+};
 
 const Trade = () => {
+  const { goldPrice } = useGoldPrice();
+  const [amount, setAmount] = useState("");
+  const [gram, setGram] = useState("");
+  const [focused, setFocused] = useState<"amount" | "gram" | null>(null);
   const theme = useTheme();
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState<0 | 1>(0); // 0: buy, 1: sell
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = toEnglishDigits(e.target.value);
+    const cleanupValue = value.replace(/[^0-9.]/g, "");
+    if (/^\d*\.?\d*$/.test(cleanupValue)) {
+      setFocused("amount");
+      setAmount(cleanupValue);
+    }
+  };
+
+  const handleGramChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = toEnglishDigits(e.target.value);
+    if (/^\d*\.?\d*$/.test(value)) {
+      setFocused("gram");
+      setGram(value);
+    }
+  };
+
+  const setGramByAmount = () => {
+    if (amount && goldPrice) {
+      const price = tab === 0 ? goldPrice.buyPrice : goldPrice.sellPrice;
+      const newGram = (Number(amount) / price).toFixed(2);
+      setGram(newGram);
+    } else {
+      setGram("");
+    }
+  };
+
+  const setAmountByGram = () => {
+    if (gram && goldPrice) {
+      const price = tab === 0 ? goldPrice.buyPrice : goldPrice.sellPrice;
+      const newAmount = (Number(gram) * price).toFixed(0);
+      setAmount(newAmount);
+    } else {
+      setAmount("");
+    }
+  };
+
+  useEffect(() => {
+    if (focused === "amount") {
+      setGramByAmount();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [amount]);
+
+  useEffect(() => {
+    if (focused === "gram") {
+      setAmountByGram();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gram]);
+
+  useEffect(() => {
+    setAmount("");
+    setGram("");
+  }, [tab]);
 
   return (
     <Stack
@@ -94,31 +196,7 @@ const Trade = () => {
         borderRadius: "16px",
       }}
     >
-      <PriceHeader>
-        <PriceItem>
-          <Typography variant="body1">
-            {FaContent.home.trade.buy_price}
-          </Typography>
-          <BuyPrice>
-            <span>0</span>
-            <span>{FaContent.home.trade.currency}</span>
-          </BuyPrice>
-        </PriceItem>
-
-        <LogoContainer>
-          <LogoSvg />
-        </LogoContainer>
-
-        <PriceItem>
-          <Typography variant="body1">
-            {FaContent.home.trade.sell_price}
-          </Typography>
-          <SellPrice>
-            <span>0</span>
-            <span>{FaContent.home.trade.currency}</span>
-          </SellPrice>
-        </PriceItem>
-      </PriceHeader>
+      <TradeHeader goldPrice={goldPrice} />
 
       <TradingMain>
         <Box>
@@ -128,34 +206,12 @@ const Trade = () => {
           </StyledTabs>
         </Box>
 
-        <InputsContainer>
-          <StyledTextField
-            label={FaContent.home.trade.total_value}
-            name={FaContent.home.trade.currency}
-            slotProps={{
-              input: {
-                endAdornment: FaContent.home.trade.currency,
-              },
-            }}
-            sx={{
-              marginTop: theme.spacing(1.5),
-              background: theme.palette.background.paper,
-            }}
-          />
-          <StyledTextField
-            label={FaContent.home.trade.gold_amount}
-            name={FaContent.home.trade.unit}
-            slotProps={{
-              input: {
-                endAdornment: FaContent.home.trade.unit,
-              },
-            }}
-            sx={{
-              marginTop: theme.spacing(1.5),
-              background: theme.palette.background.paper,
-            }}
-          />
-        </InputsContainer>
+        <TradeInputs
+          gram={gram}
+          handleGramChange={handleGramChange}
+          amount={amount}
+          handleAmountChange={handleAmountChange}
+        />
       </TradingMain>
 
       <ActionButton

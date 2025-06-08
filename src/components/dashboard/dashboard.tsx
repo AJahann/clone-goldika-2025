@@ -2,14 +2,28 @@
 import type { JSX } from "react";
 
 import FaContent from "@/content/fa.json";
+import { useGoldPrice } from "@/libs/data-layer/gold-price/use-gold-price";
+import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
+import { toPersianDigits } from "@/utils/to-persian-digits";
 import AccountBalanceWalletOutlinedIcon from "@mui/icons-material/AccountBalanceWalletOutlined";
 import CurrencyExchangeIcon from "@mui/icons-material/CurrencyExchange";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 import SellIcon from "@mui/icons-material/Sell";
-import { Box, Button, Stack, styled, Typography } from "@mui/material";
+import { Box, CircularProgress, Tooltip } from "@mui/material";
 import Link from "next/link";
 
 import Chart from "../home/chart";
-import { PanelTitle } from "./styled";
+import {
+  ActionButton,
+  DashboardBox,
+  DashboardBoxPrice,
+  DashboardBoxSubtitle,
+  DashboardBoxTitle,
+  DirectionsContainer,
+  LoadingOverlay,
+  PanelContainer,
+  PanelTitle,
+} from "./styled";
 
 interface ActionProps {
   title: string;
@@ -19,63 +33,10 @@ interface ActionProps {
   btnName?: string;
   geram?: boolean;
   link?: string;
+  isLoading?: boolean;
+  isError?: boolean;
+  error?: Error | null;
 }
-
-const PanelContainer = styled(Box)(({ theme }) => ({
-  padding: "28px 24px",
-  margin: "0 auto",
-  maxWidth: "60rem",
-  width: "100%",
-  boxSizing: "border-box",
-
-  [theme.breakpoints.down(840)]: {
-    padding: theme.spacing(2),
-  },
-}));
-
-const DashboardBox = styled(Stack)(({ theme }) => ({
-  backgroundColor: theme.palette.background.paper,
-  padding: "18px",
-  borderRadius: "16px",
-  justifyContent: "space-between",
-  textWrap: "nowrap",
-  flex: 1,
-}));
-
-const DashboardBoxTitle = styled(Typography)(({ theme }) => ({
-  fontSize: "16px",
-  textAlign: "right",
-  color: theme.palette.text.primary,
-  lineHeight: "24px",
-  marginBottom: "9px",
-}));
-
-const DashboardBoxSubtitle = styled(Typography)(({ theme }) => ({
-  fontSize: "14.4px",
-  color: theme.palette.text.secondary,
-}));
-
-const DashboardBoxPrice = styled(Typography)(({ theme }) => ({
-  height: "100%",
-  marginTop: "20px",
-  color: theme.palette.text.primary,
-  fontSize: "20px",
-  textAlign: "left",
-  marginBottom: "10px",
-}));
-
-const ActionButton = styled(Button)({
-  fontSize: "16px",
-  borderRadius: "8px",
-  textWrap: "nowrap",
-});
-
-const DirectionsContainer = styled(Box)(({ theme }) => ({
-  display: "flex",
-  gap: "24px",
-  flexWrap: "wrap",
-  [theme.breakpoints.down("md")]: {},
-}));
 
 function DashboardActionBox({
   title,
@@ -85,67 +46,123 @@ function DashboardActionBox({
   btnName,
   geram,
   link,
+  isLoading,
+  isError,
+  error,
 }: ActionProps) {
-  return (
-    <DashboardBox>
-      <DashboardBoxTitle variant="body1">{title}</DashboardBoxTitle>
-      {txt && (
-        <DashboardBoxSubtitle variant="body2">{txt}</DashboardBoxSubtitle>
-      )}
-      <DashboardBoxPrice variant="h3">
-        {price} {geram ? "گرم" : "تومان"}
-      </DashboardBoxPrice>
-      {link && (
-        <Link passHref href={link}>
-          <ActionButton
-            fullWidth
-            variant="contained"
-            color={
-              btnName === "خرید"
-                ? "success"
-                : btnName === "فروش"
-                  ? "error"
-                  : "primary"
-            }
-            startIcon={icon}
-          >
-            {btnName}
-          </ActionButton>
-        </Link>
-      )}
-    </DashboardBox>
-  );
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <LoadingOverlay>
+          <CircularProgress size={24} />
+        </LoadingOverlay>
+      );
+    }
+
+    if (isError) {
+      return (
+        <LoadingOverlay>
+          <Tooltip title={error?.message ?? "خطا در دریافت اطلاعات"}>
+            <ErrorOutlineIcon color="error" fontSize="large" />
+          </Tooltip>
+        </LoadingOverlay>
+      );
+    }
+
+    return (
+      <>
+        <DashboardBoxTitle variant="body1">{title}</DashboardBoxTitle>
+        {txt && (
+          <DashboardBoxSubtitle variant="body2">{txt}</DashboardBoxSubtitle>
+        )}
+        <DashboardBoxPrice variant="h3">
+          {price} {geram ? "گرم" : "تومان"}
+        </DashboardBoxPrice>
+        {link && (
+          <Link passHref href={link}>
+            <ActionButton
+              fullWidth
+              disabled={isLoading ?? isError}
+              variant="contained"
+              color={
+                btnName === "خرید"
+                  ? "success"
+                  : btnName === "فروش"
+                    ? "error"
+                    : "primary"
+              }
+              startIcon={icon}
+            >
+              {btnName}
+            </ActionButton>
+          </Link>
+        )}
+      </>
+    );
+  };
+
+  return <DashboardBox>{renderContent()}</DashboardBox>;
 }
 
 const Dashboard = () => {
+  const {
+    goldPrice,
+    isLoading: isGoldPriceLoading,
+    isError: isGoldPriceError,
+    error: goldPriceError,
+  } = useGoldPrice();
+
+  const {
+    user,
+    isLoading: isUserLoading,
+    isError: isUserError,
+    error: userError,
+  } = useUserProfile();
+
   return (
     <PanelContainer>
-      <PanelTitle variant="h1">خانه</PanelTitle>
+      <PanelTitle variant="h1">{FaContent.dashboard.dashboard.home}</PanelTitle>
       <DirectionsContainer>
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.buy}
-          link="/trade?action=buy"
-          price={0}
+          link="/dashboard/trade?action=buy"
+          price={Intl.NumberFormat("fa").format(goldPrice?.buyPrice ?? 0)}
           title={FaContent.dashboard.dashboard.buy_from_brand}
           txt={FaContent.dashboard.dashboard.gold}
+          error={goldPriceError}
           icon={<CurrencyExchangeIcon fontSize="small" />}
+          isError={isGoldPriceError}
+          isLoading={isGoldPriceLoading}
         />
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.sell}
-          link="/trade?action=sell"
-          price={0}
+          link="/dashboard/trade?action=sell"
+          price={Intl.NumberFormat("fa").format(goldPrice?.sellPrice ?? 0)}
           title={FaContent.dashboard.dashboard.sell_to_brand}
           txt={FaContent.dashboard.dashboard.gold}
+          error={goldPriceError}
           icon={<SellIcon fontSize="small" />}
+          isError={isGoldPriceError}
+          isLoading={isGoldPriceLoading}
         />
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.increase_wallet}
-          link="/deposit"
-          price={0}
-          title={FaContent.dashboard.dashboard.amount}
+          link="/dashboard/deposit"
+          price={Intl.NumberFormat("fa").format(user?.wallet.cashBalance ?? 0)}
+          title={FaContent.dashboard.dashboard.cash_amount}
+          error={userError}
           icon={<AccountBalanceWalletOutlinedIcon fontSize="small" />}
+          isError={isUserError}
+          isLoading={isUserLoading}
         />
-        <DashboardActionBox geram price={0} title="موجودی کیف طلا:" />
+        <DashboardActionBox
+          geram
+          price={toPersianDigits(user?.wallet.goldAmount ?? 0)}
+          title="موجودی کیف طلا:"
+          error={userError}
+          isError={isUserError}
+          isLoading={isUserLoading}
+        />
       </DirectionsContainer>
 
       <Box
