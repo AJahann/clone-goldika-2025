@@ -5,7 +5,6 @@ import { InfoAlert } from "@/components/ui/styled-alerts";
 import FaContent from "@/content/fa.json";
 import { useBasket } from "@/libs/data-layer/basket/use-basket";
 import { useProducts } from "@/libs/data-layer/products/useProducts";
-import { useProductForm } from "@/libs/data-layer/products/useProductsForm";
 import { useUserProfile } from "@/libs/data-layer/user-profile/use-user-profile";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import {
@@ -181,8 +180,15 @@ const ProductsGrid = ({ products }: { products: Product[] }) => (
 const OrderPickup = () => {
   const { user } = useUserProfile();
   const { data: products, isLoading, isError, error } = useProducts();
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [isOpenCart, setIsOpenCart] = useState(false);
   const [isOpenFilters, setIsOpenFilters] = useState(false);
+
+  useEffect(() => {
+    if (products) {
+      setFilteredProducts(products);
+    }
+  }, [products]);
 
   return (
     <Container maxWidth="lg" sx={{ py: 3 }}>
@@ -198,7 +204,7 @@ const OrderPickup = () => {
         <Stack alignItems="center">
           <CircularProgress size={32} />
         </Stack>
-      ) : !products || products.length === 0 ? (
+      ) : filteredProducts.length === 0 ? (
         <Typography mt={8} textAlign="center" variant="h1" color="primary">
           محصولی یافت نشد
         </Typography>
@@ -207,7 +213,7 @@ const OrderPickup = () => {
           {error.message}
         </Typography>
       ) : (
-        <ProductsGrid products={products} />
+        <ProductsGrid products={filteredProducts} />
       )}
 
       <UserCard
@@ -215,12 +221,15 @@ const OrderPickup = () => {
         isOpen={isOpenCart}
         onClose={() => setIsOpenCart(false)}
       />
-      {/* <OrderFilters
-        data={products}
-        isOpen={isOpenFilters}
-        // setData={setProducts}
-        onClose={() => setIsOpenFilters(false)}
-      /> */}
+
+      {isLoading || (
+        <OrderFilters
+          isOpen={isOpenFilters}
+          pureData={products ?? []}
+          setData={setFilteredProducts}
+          onClose={() => setIsOpenFilters(false)}
+        />
+      )}
     </Container>
   );
 };
