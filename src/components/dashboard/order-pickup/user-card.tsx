@@ -3,6 +3,7 @@ import type { UserProfile } from "@/libs/data-layer/user-profile/use-user-profil
 
 import FaContent from "@/content/fa.json";
 import { useBasket } from "@/libs/data-layer/basket/use-basket";
+import { useOrderConfirm } from "@/libs/data-layer/order/use-order-confirm";
 import LocalGroceryStoreOutlinedIcon from "@mui/icons-material/LocalGroceryStoreOutlined";
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
 import {
@@ -21,7 +22,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import toast from "react-hot-toast";
 
 const StyledDialog = styled(Dialog)(({ theme }) => ({
@@ -46,6 +47,9 @@ const EmptyCartMessage = styled(Typography)(({ theme }) => ({
   color: theme.palette.primary.main,
   padding: theme.spacing(4, 6),
 }));
+
+const errorNotify = (err: string) => toast.error(err);
+const successNotify = (ms: string) => toast.success(ms);
 
 interface Props {
   isOpen: boolean;
@@ -148,13 +152,15 @@ const CartTable = ({ cart }: { cart: UserProfile["basket"] }) => (
 const CartDialogActions = ({
   onClose,
   isLoading,
+  onClick,
 }: {
   onClose: () => void;
   isLoading: boolean;
+  onClick: () => any;
 }) => (
   <DialogActions>
     <Button onClick={onClose}>{FaContent.dashboard.order.cart.cancel}</Button>
-    <Button variant="contained">
+    <Button disabled={isLoading} variant="contained" onClick={onClick}>
       {isLoading ? (
         <CircularProgress size={24} />
       ) : (
@@ -171,7 +177,17 @@ const EmptyCart = () => (
 );
 
 const UserCard: React.FC<Props> = ({ isOpen, onClose, cart }) => {
-  const [isLoading] = useState(false);
+  const { isConfirmSuccess, isLoading, confirmMutate, confirmError } =
+    useOrderConfirm();
+
+  useEffect(() => {
+    if (isConfirmSuccess) {
+      successNotify("سفارش شما با موفقیت ثبت شد.");
+    }
+    if (confirmError) {
+      errorNotify(confirmError.message);
+    }
+  }, [isConfirmSuccess, confirmError]);
 
   return (
     <StyledDialog
@@ -186,7 +202,11 @@ const UserCard: React.FC<Props> = ({ isOpen, onClose, cart }) => {
           <DialogContent sx={{ px: 1, m: 0, mt: 2, textWrap: "nowrap" }}>
             <CartTable cart={cart} />
           </DialogContent>
-          <CartDialogActions isLoading={isLoading} onClose={onClose} />
+          <CartDialogActions
+            isLoading={isLoading}
+            onClick={confirmMutate}
+            onClose={onClose}
+          />
         </>
       ) : (
         <EmptyCart />
