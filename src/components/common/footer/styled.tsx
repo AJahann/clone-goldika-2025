@@ -119,7 +119,7 @@ const PhoneText = styled(Typography)(({ theme }) => ({
 const CopyrightText = styled(Typography)(({ theme }) => ({
   textAlign: "center",
   fontSize: "0.75rem",
-  color: theme.palette.grey[500],
+  color: theme.palette.grey[300],
   marginTop: theme.spacing(2.5),
   padding: theme.spacing(1.25),
 }));

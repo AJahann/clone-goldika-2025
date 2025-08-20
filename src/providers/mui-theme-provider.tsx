@@ -21,7 +21,6 @@ const MuiThemeProvider = ({ children }: { children: React.ReactNode }) => {
       dangerouslySetInnerHTML={{
         __html: Object.values(cache.inserted).join(" "),
       }}
-      // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
       data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(" ")}`}
     />
   ));

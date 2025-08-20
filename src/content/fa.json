@@ -43,7 +43,7 @@
     "official_trade": "خرید طلای آب شده به صورت رسمی و تضمین‌شده و با هر میزان سرمایه",
     "enter_phone": "شماره تلفن همراه خود را وارد کنید",
     "quick_register": "در کمتر از دو دقیقه ثبت‌نام و شروع به معامله کنید.",
-    "start": "شروع",
+    "start": "آماده‌سازی",
     "start_trade": "همین حالا سرمایه‌گذاری را شروع کنید",
     "login_to_brand": "ورود به آ مارکت",
     "trade": {
@@ -105,23 +105,23 @@
       "list": [
         {
           "id": 1,
-          "href": "/how-to-use",
+          "href": "/not-found",
           "imageSrc": "/images/article-news/baner1.webp",
-          "imageAlt": "آموزش قدم به قدم سامانه آ مارکت",
+          "imageAlt": "Learn step by step with AMarket",
           "title": "آموزش قدم به قدم سامانه آ مارکت"
         },
         {
           "id": 2,
-          "href": "/buy-gold",
+          "href": "/not-found",
           "imageSrc": "/images/article-news/baner2.webp",
-          "imageAlt": "خرید طلای آبشده یا دست‌ دوم؟",
+          "imageAlt": "First hand or used gold?",
           "title": "خرید طلای آبشده یا دست‌ دوم؟"
         },
         {
           "id": 3,
-          "href": "/gold-price",
+          "href": "/not-found",
           "imageSrc": "/images/article-news/baner3.webp",
-          "imageAlt": "نحوه محاسبه قیمت طلا در زمان خرید – سال 1402 (به همراه یک مثال)",
+          "imageAlt": "The ways to implement gold price in 2025",
           "title": "نحوه محاسبه قیمت طلا در زمان خرید – سال 1402 (به همراه یک مثال)"
         }
       ]
@@ -143,15 +143,19 @@
   "footer": {
     "links": {
       "right": [
-        { "href": "/", "label": "صفحه‌ی اصلی" },
-        { "href": "/about", "label": "درباره ما" },
-        { "href": "/rules", "label": "شرایط و قوانین" },
-        { "href": "/blog", "label": "وبلاگ" }
+        { "href": "/", "label": "صفحه‌ی اصلی", "alt": "main page" },
+        { "href": "/about", "label": "درباره ما", "alt": "about" },
+        { "href": "/not-found", "label": "شرایط و قوانین", "alt": "rules" },
+        { "href": "/not-found", "label": "وبلاگ", "alt": "blog" }
       ],
       "left": [
-        { "href": "/faq", "label": "سؤالات متداول" },
-        { "href": "/trust", "label": "چطور به آ مارکت اعتماد کنیم؟" },
-        { "href": "/contact", "label": "ارتباط با ما" }
+        { "href": "/faq", "label": "سؤالات متداول", "alt": "faq" },
+        {
+          "href": "/not-found",
+          "label": "چطور به آ مارکت اعتماد کنیم؟",
+          "alt": "trust"
+        },
+        { "href": "/contact", "label": "ارتباط با ما", "alt": "contact" }
       ]
     },
     "nemads": [

@@ -74,7 +74,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
         {["blog", "about", "faq", "contact"].map((path) => (
           <Link
             passHref
-            href={`/${path}`}
+            href={`/${path === "blog" ? "not-found" : path}`}
             key={path}
             style={{ textDecoration: "none" }}
           >
@@ -163,7 +163,7 @@ const NavBar = () => {
             {["blog", "about", "faq", "contact"].map((path) => (
               <Link
                 passHref
-                href={`/${path}`}
+                href={`/${path === "blog" ? "not-found" : path}`}
                 key={path}
                 style={{ textDecoration: "none" }}
               >

@@ -26,14 +26,14 @@ const FooterLinks = () => {
     <FooterLinksContainer>
       <FooterLinksColumn>
         {FaContent.footer.links.right.map((link) => (
-          <FooterLink passHref href={link.href} key={link.href}>
+          <FooterLink passHref href={link.href} key={link.alt}>
             {link.label}
           </FooterLink>
         ))}
       </FooterLinksColumn>
       <FooterLinksColumn>
         {FaContent.footer.links.left.map((link) => (
-          <FooterLink passHref href={link.href} key={link.href}>
+          <FooterLink passHref href={link.href} key={link.alt}>
             {link.label}
           </FooterLink>
         ))}

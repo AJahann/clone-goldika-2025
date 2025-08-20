@@ -1,7 +1,11 @@
-import type { NextConfig } from "next";
+import withBundleAnalyzer from "@next/bundle-analyzer";
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const bundleAnalyzer = withBundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
+const nextConfig = {
+  // normal Next.js config options here
 };
 
-export default nextConfig;
+export default bundleAnalyzer(nextConfig);

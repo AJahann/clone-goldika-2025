@@ -58,13 +58,13 @@ const Info = () => {
             endAdornment: (
               <Button
                 href={user ? "/dashboard" : "/login"}
-                sx={{ alignItems: "center", zIndex: 2 }}
+                sx={{ alignItems: "center", zIndex: 2, pl: "20px" }}
                 variant="contained"
                 color="primary"
                 LinkComponent={Link}
               >
                 <Typography fontSize={14}>{FaContent.home.start}</Typography>
-                <KeyboardArrowLeftRoundedIcon />
+                <KeyboardArrowLeftRoundedIcon fontSize="small" />
               </Button>
             ),
           },

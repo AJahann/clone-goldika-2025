@@ -79,6 +79,9 @@ const ArticleCard = ({ href, imageSrc, imageAlt, title }: ArticleCardProps) => (
         <ArticleImageContainer>
           <Image
             fill
+            // height={280}
+            // width={300}
+            sizes="300px 280px"
             alt={imageAlt}
             quality={100}
             src={imageSrc}

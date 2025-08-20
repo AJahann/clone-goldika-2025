@@ -30,7 +30,7 @@ const InfoCard = ({ title, description, buttonText, icon }: InfoCardProps) => {
     <StyledCard>
       <CardMediaContainer>{icon}</CardMediaContainer>
       <StyledCardContent>
-        <Typography variant="h3" fontSize={28} gutterBottom>
+        <Typography variant="h2" fontSize={28} gutterBottom>
           {title}
         </Typography>
         <Typography variant="body2" fontSize={16}>
