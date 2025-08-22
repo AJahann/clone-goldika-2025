@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 import StyledTextField from "@/components/ui/styled-text-field";
 import FaContent from "@/content/fa.json";
@@ -152,8 +153,8 @@ const PriceDisplay = ({ tradeType }: { tradeType: "buy" | "sell" }) => {
       <Typography fontSize={18} fontWeight="bold">
         {new Intl.NumberFormat("fa").format(
           tradeType === "buy"
-            ? +(goldPrice?.buyPrice ?? 0)
-            : +(goldPrice?.sellPrice ?? 0),
+            ? +(goldPrice.buyPrice ?? 0)
+            : +(goldPrice.sellPrice ?? 0),
         )}{" "}
         {FaContent.home.trade.currency}
       </Typography>

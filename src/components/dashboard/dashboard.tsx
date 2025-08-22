@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 import type { JSX } from "react";
 
@@ -126,7 +127,7 @@ const Dashboard = () => {
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.buy}
           link="/dashboard/trade?action=buy"
-          price={Intl.NumberFormat("fa").format(goldPrice?.buyPrice ?? 0)}
+          price={Intl.NumberFormat("fa").format(goldPrice.buyPrice ?? 0)}
           title={FaContent.dashboard.dashboard.buy_from_brand}
           txt={FaContent.dashboard.dashboard.gold}
           error={goldPriceError}
@@ -137,7 +138,7 @@ const Dashboard = () => {
         <DashboardActionBox
           btnName={FaContent.dashboard.dashboard.sell}
           link="/dashboard/trade?action=sell"
-          price={Intl.NumberFormat("fa").format(goldPrice?.sellPrice ?? 0)}
+          price={Intl.NumberFormat("fa").format(goldPrice.sellPrice ?? 0)}
           title={FaContent.dashboard.dashboard.sell_to_brand}
           txt={FaContent.dashboard.dashboard.gold}
           error={goldPriceError}

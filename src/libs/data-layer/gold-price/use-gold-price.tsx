@@ -1,7 +1,5 @@
 "use client";
 
-import { api } from "@/libs/axios-intance";
-import { getErrorMessage } from "@/utils/error-handler";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export interface GoldPrice {

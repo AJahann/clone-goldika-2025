@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 "use client";
 import { StyledTab, StyledTabs } from "@/components/ui/styled-tabs";
 import StyledTextField from "@/components/ui/styled-text-field";
@@ -6,7 +7,6 @@ import { useGoldPrice } from "@/libs/data-layer/gold-price/use-gold-price";
 import { toEnglishDigits } from "@/utils/to-english-digits";
 import { toPersianDigits } from "@/utils/to-persian-digits";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
-import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
