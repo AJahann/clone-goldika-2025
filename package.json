@@ -11,7 +11,8 @@
     "format:check": "prettier --check \"src/**/*.{tsx,ts}\"",
     "lint": "eslint \"src/**/*.{tsx,ts}\"",
     "lint:fix": "eslint \"src/**/*.{tsx,ts}\" --fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "cy:open": "cypress open"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -43,6 +44,7 @@
     "@types/node": "22.14.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cypress": "^14.5.3",
     "eslint": "9.24.0",
     "husky": "9.1.7",
     "lint-staged": "15.5.0",
