@@ -2,29 +2,26 @@
 
 import { api } from "@/libs/axios-intance";
 import { getErrorMessage } from "@/utils/error-handler";
-import { useQuery } from "@tanstack/react-query";
+import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
 export interface GoldPrice {
   buyPrice: number;
   sellPrice: number;
 }
 
-const fetchGoldPrice = async (): Promise<GoldPrice> => {
-  try {
-    const { data } = await api.get<GoldPrice>("/gold-price/latest");
-    return data;
-  } catch (error) {
-    throw new Error(getErrorMessage(error, "خطا در دریافت قیمت طلا"));
-  }
-};
+export const goldPrice = queryOptions<GoldPrice>({
+  queryKey: ["goldPrice"],
+  queryFn: async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API_URL!}/gold-price/latest`,
+    );
+
+    return response.json();
+  },
+});
 
 export const useGoldPrice = () => {
-  const query = useQuery({
-    queryKey: ["goldPrice"],
-    queryFn: fetchGoldPrice,
-    staleTime: 60 * 1000,
-    refetchInterval: 60 * 1000,
-  });
+  const query = useSuspenseQuery(goldPrice);
 
   return {
     goldPrice: query.data,

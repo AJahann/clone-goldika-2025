@@ -6,6 +6,7 @@ import { useGoldPrice } from "@/libs/data-layer/gold-price/use-gold-price";
 import { toEnglishDigits } from "@/utils/to-english-digits";
 import { toPersianDigits } from "@/utils/to-persian-digits";
 import { Box, Stack, Typography, useTheme } from "@mui/material";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
