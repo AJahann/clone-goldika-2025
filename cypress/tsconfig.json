@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "types": ["cypress", "@testing-library/cypress"],
+    "target": "ES6",
+    "isolatedModules": false,
+    "moduleResolution": "node",
+    "jsx": "preserve",
+    "noEmit": true,
+    "strictNullChecks": true,
+
+    // additional
+    "module": "esnext",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  }
+}
