@@ -1,11 +1,13 @@
+import type { NextConfig } from "next";
+
 import withBundleAnalyzer from "@next/bundle-analyzer";
 
 const bundleAnalyzer = withBundleAnalyzer({
   enabled: process.env.ANALYZE === "true",
 });
 
-const nextConfig = {
-  // normal Next.js config options here
+const nextConfig: NextConfig = {
+  output: "standalone",
 };
 
 export default bundleAnalyzer(nextConfig);
