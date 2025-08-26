@@ -1,7 +1,7 @@
 "use client";
 import { WarningAlert } from "@/components/ui/styled-alerts";
 import FaContent from "@/content/fa.json";
-import { Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography } from "@mui/material";
 import { useState } from "react";
 
 import AddCardModal from "./add-card-modal";
@@ -27,6 +27,8 @@ const NoCard = () => {
           {FaContent.dashboard.transaction.add_card}
         </Typography>
       </Button>
+
+      <Box className="cards" />
     </Stack>
   );
 };

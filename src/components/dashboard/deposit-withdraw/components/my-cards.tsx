@@ -30,7 +30,6 @@ const CardItem = styled(Box)(({ theme }) => ({
   "width": "100%",
   "display": "flex",
   "padding": theme.spacing(1.5),
-  "marginTop": theme.spacing(2),
   "borderRadius": 16,
   "transition": "background-color 0.2s ease-in-out",
   ":hover": {
@@ -99,32 +98,34 @@ const MyCards = ({ onChange, selectedCard, error, helperText }: Props) => {
         </Button>
       </CardsHeader>
 
-      {user?.cards.map((card) => (
-        <CardItem
-          key={card.id}
-          onClick={() => handleCardChange(card.id)}
-          sx={{
-            border:
-              selectedCard === card.id
-                ? `2px solid ${theme.palette.primary.main}`
-                : error
-                  ? `2px solid ${theme.palette.error.main}`
-                  : `2px solid ${theme.palette.border.primary}`,
-            backgroundColor:
-              selectedCard === card.id
-                ? alpha(theme.palette.primary.main, 0.1)
-                : undefined,
-          }}
-        >
-          <AccountBalance
-            sx={{ fontSize: 56, color: theme.palette.grey[400] }}
-          />
-          <CardTextContainer>
-            <CardName>{toPersianDigits(card.cardName)}</CardName>
-            <CardNumber dir="ltr">{`****-****-****-${toPersianDigits(card.last4)}`}</CardNumber>
-          </CardTextContainer>
-        </CardItem>
-      ))}
+      <Stack className="cards" gap={2} mt={2}>
+        {user?.cards.map((card) => (
+          <CardItem
+            key={card.id}
+            onClick={() => handleCardChange(card.id)}
+            sx={{
+              border:
+                selectedCard === card.id
+                  ? `2px solid ${theme.palette.primary.main}`
+                  : error
+                    ? `2px solid ${theme.palette.error.main}`
+                    : `2px solid ${theme.palette.border.primary}`,
+              backgroundColor:
+                selectedCard === card.id
+                  ? alpha(theme.palette.primary.main, 0.1)
+                  : undefined,
+            }}
+          >
+            <AccountBalance
+              sx={{ fontSize: 56, color: theme.palette.grey[400] }}
+            />
+            <CardTextContainer>
+              <CardName>{toPersianDigits(card.cardName)}</CardName>
+              <CardNumber dir="ltr">{`****-****-****-${toPersianDigits(card.last4)}`}</CardNumber>
+            </CardTextContainer>
+          </CardItem>
+        ))}
+      </Stack>
 
       {error && helperText && (
         <FormHelperText sx={{ mt: 1 }} error>
