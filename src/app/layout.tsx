@@ -2,6 +2,8 @@ import "../styles/global.css";
 
 import type { Metadata } from "next";
 
+import IOSInstallPrompt from "@/components/notification/ios-install-prompt";
+import PWAInstallPrompt from "@/components/notification/pwa-install-prompt";
 import MuiThemeProvider from "@/providers/mui-theme-provider";
 import QueryProvider from "@/providers/query-provider";
 import { Toaster } from "react-hot-toast";
@@ -40,7 +42,11 @@ const RootLayout = ({ children }: { children: React.ReactNode }) => {
       <body suppressContentEditableWarning suppressHydrationWarning>
         <MuiThemeProvider>
           <QueryProvider>
-            <MainLayoutStyle>{children}</MainLayoutStyle>
+            <MainLayoutStyle>
+              {children}
+              <PWAInstallPrompt />
+              <IOSInstallPrompt />
+            </MainLayoutStyle>
             <Toaster />
           </QueryProvider>
         </MuiThemeProvider>
