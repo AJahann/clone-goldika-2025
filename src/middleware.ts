@@ -1,6 +1,5 @@
 import type { NextRequest } from "next/server";
 
-import { api } from "@/libs/axios-intance";
 import { NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
@@ -20,7 +19,11 @@ export async function middleware(request: NextRequest) {
 
   if (accessToken) {
     try {
-      await api.get("/auth/verify");
+      await fetch("/auth/verify", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
       return NextResponse.next();
     } catch (_error) {
       const response = NextResponse.redirect(new URL("/login", request.url));
