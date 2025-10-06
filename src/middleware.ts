@@ -19,7 +19,11 @@ export async function middleware(request: NextRequest) {
 
   if (accessToken) {
     try {
-      await fetch("/auth/verify", {
+      const baseUrl = process.env.NEXT_PUBLIC_BASE_API_URL;
+      if (!baseUrl) {
+        throw new Error("NEXT_PUBLIC_BASE_API_URL is not defined");
+      }
+      await fetch(`${baseUrl}/auth/verify`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },

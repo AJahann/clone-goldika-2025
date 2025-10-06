@@ -11,7 +11,6 @@
     "format:check": "prettier --check \"src/**/*.{tsx,ts}\"",
     "lint": "eslint \"src/**/*.{tsx,ts}\"",
     "lint:fix": "eslint \"src/**/*.{tsx,ts}\" --fix",
-    "prepare": "husky",
     "cy:open": "cypress open"
   },
   "lint-staged": {
